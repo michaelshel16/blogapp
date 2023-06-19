@@ -1,0 +1,30 @@
+.post-page-header
+{   margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+    width:100%;
+    gap:2rem;
+}
+
+.post-page-subtitle
+{
+    border-bottom: 1px solid #0A1026;
+    width:100%;
+    padding-bottom: 1rem;
+}
+
+.post-page-author
+{   
+    border-bottom: 1px solid #0A1026;
+    width:100%;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.post-page-content
+{
+    margin-top: 2rem;
+}

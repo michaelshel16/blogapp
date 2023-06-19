@@ -1,0 +1,54 @@
+.login-form{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #0A1026;
+    padding: 4rem;
+    border-radius: 1rem;
+    width:30%;
+
+}
+
+.login-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:80vh;
+    width:100%;
+}
+
+
+
+.email-input label{
+    color:#E6CF37;
+    text-align: left;
+}
+
+.password-input label{
+    color:#E6CF37;
+    text-align: left;
+}
+
+.email-input , .password-input{
+    display: flex;
+    flex-direction: column;
+}
+
+.email-input input{
+    margin:1rem;
+    padding: 0.5rem;
+    border-radius: 0.2rem;
+    border-style: none;
+    
+    
+  
+
+}
+.password-input input{
+    margin:1rem;
+    padding: 0.5rem;
+    border-radius: 0.2rem;
+    border-style: none;
+  
+}
