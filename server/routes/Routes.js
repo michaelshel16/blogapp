@@ -8,6 +8,10 @@ router.post("/register",controller.register);
 
 router.post("/login",controller.login);
 
+router.post("/user/posts",controller.createPost);
+
+router.get("/:userId/posts",verifyToken,controller.getUserPosts)
+
 
 
 

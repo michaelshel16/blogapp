@@ -8,6 +8,7 @@ const Post   = require("../model/Post.js");
 
 
 
+
  const register = async(req,res)=>
 {
    
@@ -153,6 +154,88 @@ const deletePost = async( req,res)=>{
 
 }
 
+const getUserPosts = async(req,res) =>{
+
+   try
+   {
+      const {userId}= req.params;
+
+      const posts   = await Post.findById(userId) 
+
+      if(posts)
+      {
+        res.status(200).json(posts)
+      }
+
+      else
+       res.status(400).json({message:"No posts found"})
+      
+   } 
+   catch (error)
+   {
+       res.status(500).json({message:error.message})
+   }
+
+}
+
+const getTechPosts = async(req,res)=>
+{
+  try 
+  {
+    
+    const posts  = await Post.find({postType:"tech"})
+
+    if(posts)
+    {
+      res.status(200).json(posts)
+    }
+    else
+    res.status(400).json({message:"No tech posts found"})
+    } 
+  catch (error) 
+  {
+    res.status(500).json({message:error.message})
+  }
+}
+
+const getReviewPosts = async(req,res)=>
+{
+  try 
+  {
+    
+    const posts  = await Post.find({postType:"review"})
+
+    if(posts)
+    {
+      res.status(200).json(posts)
+    }
+    else
+    res.status(400).json({message:"No tech posts found"})
+    } 
+  catch (error) 
+  {
+    res.status(500).json({message:error.message})
+  }
+}
+const getBusinessPosts = async(req,res)=>
+{
+  try 
+  {
+    
+    const posts  = await Post.find({postType:"business"})
+
+    if(posts)
+    {
+      res.status(200).json(posts)
+    }
+    else
+    res.status(400).json({message:"No tech posts found"})
+    } 
+  catch (error) 
+  {
+    res.status(500).json({message:error.message})
+  }
+}
 const updatePost = async(req,res)=>{
 
   try 
@@ -198,4 +281,4 @@ const updatePost = async(req,res)=>{
 }
 
 
-module.exports = {register,login,createPost,deletePost,updatePost}
+module.exports = {register,login,createPost,getUserPosts,deletePost,updatePost,getTechPosts,getBusinessPosts,getReviewPosts}
