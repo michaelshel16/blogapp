@@ -5,6 +5,8 @@ import { BrowserRouter } from 'react-router-dom';
 import {configureStore} from "@reduxjs/toolkit";
 import { Provider } from 'react-redux';
 import authReducer from "./State/index.jsx";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 const store = configureStore(
   {
     reducer:

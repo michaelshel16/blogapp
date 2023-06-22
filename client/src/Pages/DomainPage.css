@@ -1,0 +1,99 @@
+.domain-page-container
+{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    height:100%;
+}
+.domain-page-big-post
+{   width:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.domain-page-post-image
+{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.domain-page-post-image img
+{
+    width:80%;
+    height:80%;
+}
+.domain-page-post-title
+{   width:100%;
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+.domain-page-post-subtitle
+{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+.domain-page-post-author
+{
+    width:100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.domain-post-image-container
+{   width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.domain-post-newsletter-container
+{   margin-top: 2rem;
+    width:100%;
+    height:20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:1rem;
+    background-color: #0A1026;
+    color:white;
+    border-radius: 1rem;
+}
+.domain-post-newsletter-title
+{
+    text-align: center;
+}
+
+.domain-post-newsletter-email
+{   width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.domain-post-newsletter-email-input
+{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.domain-post-newsletter-email-input input
+{
+    width:100%;
+    border-radius: 0.5rem;
+    border-style: none;
+}
+
+
+
+

@@ -8,10 +8,13 @@ import "./HomePage.css";
 import BackgroundPost from '../components/BackgroundPost';
 import PostPage from './PostPage';
 import PostTypeCard from '../components/PostTypeCard';
-
+import AdBox from '../components/AdBox';
+import DomainPage from './DomainPage';
 const HomePage = () => {
   return (
-     <PostTypeCard/>
+    <DomainPage/>
+      //<AdBox/>
+    // <PostTypeCard/>
     //<PostPage/>
       
     //<NewPost/>
