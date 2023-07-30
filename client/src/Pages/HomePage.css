@@ -42,7 +42,17 @@
 {   padding-bottom: 1rem;
     border-bottom: 1px solid #E6CF37;
 }
+.home-page-post-content-title:hover
+{   padding-bottom: 1rem;
+    border-bottom: 1px solid #E6CF37;
+    cursor:pointer;
+}
 
+
+.home-todays-picks
+{
+    margin-bottom: 2rem;
+}
 .home-todays-picks-slider-card
 {
     display: flex;

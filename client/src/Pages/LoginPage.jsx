@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./LoginPage.css";
 import axios from "axios";
 import { Formik } from 'formik';
 import * as yup from "yup";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {setLogin} from "../State/index.jsx";
 
@@ -23,38 +23,49 @@ const initialValuesLogin = {
 
 
 const LoginPage = () => {
-  const [loggedInResponse,setloggedInResponse] = useState({});
+ 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
+  
 
   const handleFormSubmit = async(values,onSubmitProps)=>
-  { 
+  {  
     axios.post("http://localhost:4000/blog/v1/login",values,
     {
       headers:{"Content-type":"application/json"}
     }).then((res)=>
-    { 
+    {  
+       const loggedInResponse = res.data;
+       console.log(loggedInResponse);
+
+       if(loggedInResponse)
+       { axios.get(`http://localhost:4000/blog/v1/${loggedInResponse.user._id}/posts`,
+       {headers:{"Authorization":`Bearer ${loggedInResponse.token}`}}
+     
+     ).then((res)=>
+     { console.log(res.data);
        dispatch(setLogin({
-          user:res.data.user,
-          token:res.data.token
-
+         user :loggedInResponse.user,
+         token:loggedInResponse.token,
+         userPosts:res.data
        }))
+     })
+     navigate("/")
+        
+        
+      }
+      
     })
+     
+     
+   
       
-    if(loggedInResponse)
-    {
-      
-      navigate("/home")
-    }
-  
-    
-    onSubmitProps.resetForm()
-    
-
+  onSubmitProps.resetForm()
+     
 
 
   }
-  
   
 
   return (
@@ -103,7 +114,12 @@ const LoginPage = () => {
              {Boolean(touched.password)&&Boolean(errors.password)?
              <div className='errors'>{errors.password}</div>:''}
             </div>
+            <div className='submit-button'>
             <button type='submit'>Login</button>
+            </div>
+            
+          
+            
             
              
         </form>

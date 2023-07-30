@@ -52,3 +52,17 @@
     border-style: none;
   
 }
+
+.submit-button
+{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.submit-button button
+{
+    width:50%;
+    border-radius: 1rem;
+    border-style: none;
+}

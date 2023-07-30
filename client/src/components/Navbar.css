@@ -56,7 +56,17 @@
 {
   cursor: pointer;
 }
+.navbar-login-user
+{ position: absolute;
 
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:1rem;
+  background-color: #E6CF37;
+  color: #0A1026;
+}
 .navbar-register
 {
   cursor: pointer;

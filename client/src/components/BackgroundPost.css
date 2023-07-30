@@ -10,10 +10,17 @@
 .bg-post-read-more
 {
   display: flex;
+  
+  
   justify-content: center;
   align-items: center;
   width:20%;
   height:100%;
+}
+.bg-post-read-more:hover
+{
+  color: white;
+  cursor: pointer;
 }
 
 .bg-post-image
