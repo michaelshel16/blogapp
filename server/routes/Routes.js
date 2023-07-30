@@ -8,11 +8,21 @@ router.post("/register",controller.register);
 
 router.post("/login",controller.login);
 
-router.post("/user/posts",controller.createPost);
-
-router.get("/:userId/posts",verifyToken,controller.getUserPosts)
 
 
+
+
+router.delete("/:postid/post",verifyToken,controller.deletePost);
+
+router.get("/:userId/posts",verifyToken,controller.getUserPosts);
+
+router.get("/post/:id",controller.getPost);
+
+router.get("/posts/tech",controller.getTechPosts);
+
+router.get("/posts/business",controller.getBusinessPosts);
+
+router.get("/posts/reviews",controller.getReviewPosts)
 
 
 

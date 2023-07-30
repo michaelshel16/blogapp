@@ -73,7 +73,8 @@ const login = async(req,res)=>
 
      if(!isMatch)
      return res.status(401).json({message:"Invalid Crendentials"});
-
+     
+     
      const token = jwt.sign({id:user._id},process.env.JWT_CODE);
 
      delete user.password;
@@ -96,27 +97,35 @@ const createPost = async(req,res)=>{
   {
     const{
       title,
+      author,
+      subtitle,
       content,
       image,
       email,
-      postType
+      postType,
+      date
     } = req.body
    
     const user = await User.findOne({email:email})
     
-    const newPost = new Post
+      const newPost = new Post
     (
     {
-      userId : user._id,
-      email:email,
-      title:title,
-      content:content,
-      image:image,
-      postType:postType
+      userId  : user._id,
+      author  : author,
+      email   : email,
+      title   : title,
+      subtitle: subtitle,
+      content : content,
+      postType: postType,
+      image   : image,
+      date    : date
     })
 
     await newPost.save();
     res.status(201).json(newPost);
+    
+   
   } 
   catch (error) 
   {
@@ -131,13 +140,14 @@ const deletePost = async( req,res)=>{
      
     try 
     {
-      const{userId} = req.body
+      const {postId} = req.params
       
-      const findPost = Post.findById(userId);
+      const findPost = await Post.findOne({_id:postId})
 
+      
       if(findPost)
       {
-        Post.deleteOne(userId)
+        Post.deleteOne(postId)
         res.status(201).json({message:"Post deleted successfully"})
       }
       else
@@ -154,13 +164,36 @@ const deletePost = async( req,res)=>{
 
 }
 
+const getPost = async(req,res)=>{
+  try 
+  {
+    const {id} = req.params;
+    const post = await Post.findById(id)
+    if(post)
+    {
+      res.status(200).json(post)
+    }
+    else
+    {
+      res.status(401).json({message:"No post found"})
+    }
+  } 
+  catch (error) 
+  {
+     res.status(500).json({message:error.message})
+  }
+
+
+
+}
+
 const getUserPosts = async(req,res) =>{
 
    try
    {
       const {userId}= req.params;
 
-      const posts   = await Post.findById(userId) 
+      const posts   = await Post.find({userId:userId}) 
 
       if(posts)
       {
@@ -210,7 +243,7 @@ const getReviewPosts = async(req,res)=>
       res.status(200).json(posts)
     }
     else
-    res.status(400).json({message:"No tech posts found"})
+    res.status(400).json({message:"No review posts found"})
     } 
   catch (error) 
   {
@@ -243,22 +276,34 @@ const updatePost = async(req,res)=>{
       const
       {
         userId,
-        title,
+        postId,
+        author,
         email,
-        image,
+        title,
+        subtitle,
         content,
+        postType,
+        image,
+        date
+       
        
       }  = req.body
       
-      const post = Post.findById(userId)
+      const post = Post.findById(postId)
 
       if(post){
 
        const updatedPost = new Post({
        
+        userId:userId,
+        author:author,
+        email:email,
         title:title,
+        subtitle:subtitle,
         content:content,
-        image:image
+        postType:postType,
+        image:image,
+        date:date
 
        })
        
@@ -281,4 +326,4 @@ const updatePost = async(req,res)=>{
 }
 
 
-module.exports = {register,login,createPost,getUserPosts,deletePost,updatePost,getTechPosts,getBusinessPosts,getReviewPosts}
+module.exports = {register,login,createPost,getUserPosts,deletePost,updatePost,getTechPosts,getBusinessPosts,getReviewPosts,getPost}

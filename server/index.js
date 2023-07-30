@@ -27,6 +27,7 @@ app.use(morgan("common"));
 
 app.use(bodyParser.json({limit:"30mb",extended:true}));
 app.use(bodyParser.urlencoded({limit:"30mb",extended:true}));
+app.use("/assets", express.static(path.join(__dirname,"/public/assets")));
 
 const storage = multer.diskStorage({
     
@@ -43,15 +44,16 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage:storage});
 
-app.use("/assets", express.static(path.join(__dirname,"public/assets")));
+
+
+
+
+
+app.post("/blog/v1/user/posts", verifyToken, upload.single('image'),controller.createPost);
+app.patch("/blog/v1/editpost", verifyToken, upload.single('image'),controller.updatePost);
+
+
 app.use("/blog/v1",blogRoutes);
-
-
-
-
-app.post("/blog/v1/post", verifyToken, upload.single('image'),controller.createPost);
-app.post("/blog/v1/post/update", verifyToken, upload.single('image'),controller.updatePost);
-
 
 mongoose.connect(dataBaseUrl,{
     useNewUrlParser: true,
