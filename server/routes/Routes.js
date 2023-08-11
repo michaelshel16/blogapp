@@ -12,7 +12,7 @@ router.post("/login",controller.login);
 
 
 
-router.delete("/:postid/post",verifyToken,controller.deletePost);
+router.delete("/:postId/post",verifyToken,controller.deletePost);
 
 router.get("/:userId/posts",verifyToken,controller.getUserPosts);
 

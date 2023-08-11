@@ -25,6 +25,7 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 
 
+
 app.use(bodyParser.json({limit:"30mb",extended:true}));
 app.use(bodyParser.urlencoded({limit:"30mb",extended:true}));
 app.use("/assets", express.static(path.join(__dirname,"/public/assets")));
@@ -51,7 +52,7 @@ const upload = multer({storage:storage});
 
 app.post("/blog/v1/user/posts", verifyToken, upload.single('image'),controller.createPost);
 app.patch("/blog/v1/editpost", verifyToken, upload.single('image'),controller.updatePost);
-
+app.delete("")
 
 app.use("/blog/v1",blogRoutes);
 

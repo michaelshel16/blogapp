@@ -1,7 +1,9 @@
-const bcrypt = require('bcrypt');
-const jwt    = require('jsonwebtoken');
-const User   = require("../model/User.js");
-const Post   = require("../model/Post.js");
+const bcrypt       = require('bcrypt');
+const jwt          = require('jsonwebtoken');
+const User         = require("../model/User.js");
+const Post         = require("../model/Post.js");
+const { response } = require('express');
+const fs           = require("fs");
 
 
 
@@ -95,17 +97,22 @@ const createPost = async(req,res)=>{
    
   try 
   {
-    const{
-      title,
+    
+
+    const 
+    {
       author,
+      email ,  
+      title ,  
       subtitle,
-      content,
-      image,
-      email,
+      content ,
       postType,
-      date
+      image ,  
+      date   
     } = req.body
+
    
+
     const user = await User.findOne({email:email})
     
       const newPost = new Post
@@ -126,7 +133,7 @@ const createPost = async(req,res)=>{
     res.status(201).json(newPost);
     
    
-  } 
+  }
   catch (error) 
   {
      res.status(500).json({error:error.message})
@@ -136,29 +143,28 @@ const createPost = async(req,res)=>{
 
 }
 
-const deletePost = async( req,res)=>{
+const deletePost = async(req,res)=>{
      
     try 
     {
-      const {postId} = req.params
-      
-      const findPost = await Post.findOne({_id:postId})
+       const {postId}      = req.params
+       const {post}        = Post.findById({_id:postId})
+       const fileName      = post.image
+       const directoryPath = "/public/"
+       Post.findByIdAndDelete({_id:postId})
+       .then((response)=>
+       res.status(201).json(response))
+       
 
-      
-      if(findPost)
-      {
-        Post.deleteOne(postId)
-        res.status(201).json({message:"Post deleted successfully"})
-      }
-      else
-      {
-        res.status(401).json({message:"No Post found "})
-      }
 
+       .catch((error)=>
+       res.json(error))
+       
+       
     } 
-    catch (error)
+    catch (error) 
     {
-       res.status(500).json({error:error.message})
+       res.status(500).json({message:error.message})
     }
 
 
