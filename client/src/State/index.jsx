@@ -6,7 +6,7 @@ const initialState =
   
    user:null,
    post:null,
-   editPostId:"",
+   editPost:null,
    userPosts:[],
    techPosts:[],
    businessPosts:[],
@@ -35,10 +35,14 @@ reducers:{
      setLogin:(state,action)=>
     {
       
-        state.userPosts  = action.payload.userPosts
+       
         state.user       = action.payload.user
         state.token      = action.payload.token
 
+    },
+    setUserPosts:(state,action)=>
+    {
+      state.userPosts  = action.payload.userPosts
     },
     setPost:(state,action)=>
     {
@@ -46,15 +50,16 @@ reducers:{
     },
     setEditPost:(state,action)=>
     {
-      state.editPostId = action.payload.editPostId
+      state.editPost = action.payload.editPost
     },
     
     setLogout:(state,action)=>
     {
 
-        state.user      = initialState.user
-        state.token     = initialState.token
-        state.userPosts = initialState.userPosts
+        state.user       = initialState.user
+        state.token      = initialState.token
+        state.userPosts  = initialState.userPosts
+        state.editPostId = initialState.editPostId
     }
 }
 
@@ -63,8 +68,8 @@ reducers:{
 
 export const 
 {setMode,setLogin,setLogout,
-   setTechPosts,setBusinessPosts,
-   setReviewsPosts,setPost,setEditpost} = authSlice.actions;
+   setTechPosts,setBusinessPosts,setUserPosts,
+   setReviewsPosts,setPost,setEditPost} = authSlice.actions;
 
 const authReducer = authSlice.reducer
 

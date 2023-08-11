@@ -5,7 +5,8 @@ import { Formik } from 'formik';
 import * as yup from "yup";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import {setLogin} from "../State/index.jsx";
+import {setLogin,setUserPosts} from "../State/index.jsx";
+
 
 
 const loginSchema = yup.object().shape({
@@ -38,6 +39,11 @@ const LoginPage = () => {
     {  
        const loggedInResponse = res.data;
        console.log(loggedInResponse);
+       dispatch(setLogin({
+        user :loggedInResponse.user,
+        token:loggedInResponse.token,
+        
+      }))
 
        if(loggedInResponse)
        { axios.get(`http://localhost:4000/blog/v1/${loggedInResponse.user._id}/posts`,
@@ -45,10 +51,9 @@ const LoginPage = () => {
      
      ).then((res)=>
      { console.log(res.data);
-       dispatch(setLogin({
-         user :loggedInResponse.user,
-         token:loggedInResponse.token,
-         userPosts:res.data
+       
+       dispatch(setUserPosts({
+        userPosts:res.data
        }))
      })
      navigate("/")

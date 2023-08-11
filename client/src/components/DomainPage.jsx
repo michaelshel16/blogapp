@@ -33,9 +33,9 @@ const DomainPage = ({posts}) => {
    
   
   console.log(posts);
-  const length = posts.length;
+  const length     = posts.length;
   const postIndex  = Math.floor(Math.random()*(length-1)) 
-  const post   = posts[postIndex]
+  const post       = posts[postIndex]
   console.log(post);
   return (
     

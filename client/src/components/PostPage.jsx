@@ -41,8 +41,9 @@ const PostPage = ({data}) => {
                 <img src={`http://localhost:4000/assets/${post.image}`} 
                 alt='no image available'/>
               </div>
-                <div className='post-page-content'>
-                  <p>{post.content}</p>
+                <div className='post-page-content'
+                >
+                  <div dangerouslySetInnerHTML={{__html:post.content}}/>
                 </div>
               </div>
           

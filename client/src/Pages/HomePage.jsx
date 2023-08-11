@@ -58,10 +58,13 @@ const HomePage = () => {
     const businessPosts = useSelector((state)=> state.businessPosts);
     const HomePageArray = techPosts.concat(reviewsPosts,businessPosts);
     const length        = HomePageArray.length
-
-   const arrayPusher = ()=>
+    const Array = arrayPusher()
+    const postArray  = postGenerator();
+   const HeaderPost = postArray[0];
+   const BgPost     = postArray[1]; 
+   function arrayPusher ()
    {
-
+     
     let array = [];
     let IndexArray = [];
 
@@ -80,9 +83,9 @@ const HomePage = () => {
     return(array)
    }
 
-   const Array = arrayPusher()
+   
 
-   const postGenerator = () =>
+   function postGenerator  () 
    {
      let array = [];
      let IndexArray = [];
@@ -95,10 +98,8 @@ const HomePage = () => {
      return (array)
    }
 
-   const postArray  = postGenerator();
-   const HeaderPost = postArray[0];
-   const BgPost     = postArray[1]; 
-
+   
+  console.log(Array)
     
     
 

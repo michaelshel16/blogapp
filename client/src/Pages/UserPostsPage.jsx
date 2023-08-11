@@ -8,7 +8,7 @@ import "./UserPostsPage.css";
 import { useSelector } from 'react-redux';
 
 import axios from 'axios';
-import { setLogin ,setPost,setEditpost} from '../State';
+import { setPost,setUserPosts,setEditPost} from '../State';
 import EditPost from './EditPost';
 import PostPage from '../components/PostPage';
 
@@ -20,24 +20,45 @@ const UserPostsPage = () => {
     const navigate = useNavigate();
     const user     = useSelector((state)=> state.user)
     const token    = useSelector((state)=> state.token)
-    const posts    = useSelector((state)=>state.userPosts)
+    const posts    = useSelector((state)=> state.userPosts)
     
     console.log(token);
+
+
+    const handleEdit = async (post)=>
+    {
+      
+      dispatch(setEditPost({
+        editPost:post}
+      ))
+      navigate("/editpost")
+    }
    
     
-     const handleDelete = (post)=>
+     const handleDelete = async (post)=>
      { const postId = post._id
       console.log(post._id)
       axios.delete(`http://localhost:4000/blog/v1/${postId}/post`,
-      {
-        headers:{
-          "Authorization":`Bearer ${token}`}
-      }
-    
+      {headers:{Authorization:`Bearer ${token}`}}
+      
+     
+     ).then((res)=>
+     {
+      console.log(res);
+     }
     )
 
-  
-     }
+    let array = [];
+    array     = posts.filter((post)=>
+    {
+        return post._id !== postId
+    })
+    dispatch(setUserPosts({
+        
+      userPosts:array
+    }))
+
+  }
 
      
     
@@ -70,13 +91,7 @@ const UserPostsPage = () => {
           {item.title}
           </div>
           <div className='user-posts-operations'>
-            <div className='user-edit-icon' onClick={
-              ()=>{
-                dispatch(setEditpost({
-                  editPostId:item._id
-                }))
-                navigate("/editpost")
-                }}>
+            <div className='user-edit-icon' onClick={()=>{handleEdit(item)}}>
             <ModeEditOutlineOutlinedIcon />
             </div>
             <div className='user-delete-icon' onClick={()=>{handleDelete(item)}}>

@@ -14,6 +14,7 @@ import BusinessPage from './Pages/BusinessPage';
 import ReviewsPage from './Pages/ReviewsPage';
 import PostPage from './components/PostPage';
 import { useSelector } from 'react-redux';
+import EditPost from './Pages/EditPost';
 
 function App() {
   
@@ -37,6 +38,8 @@ function App() {
            element =  {isAuth?<UserPostsPage/>:<Navigate to="/"/>}/>
           <Route path = '/createpost'    
              element =  {isAuth?<NewPost/>:<Navigate to="/"/>}/>
+          <Route path = '/editpost'
+             element =  {isAuth?<EditPost/>:<Navigate to="/"/>}/>
 
           <Route path = '/posts/tech'       element =  {<TechPage/>}/>
           <Route path = '/posts/business'   element =  {<BusinessPage/>}/>

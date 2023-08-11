@@ -1,4 +1,5 @@
 import { Quill } from "react-quill";
+import 'quill-paste-smart';
 
 
 
@@ -24,9 +25,26 @@ let toolbarOptions = [
   
   let quill = new Quill('#editor', {
     modules: {
-      toolbar: toolbarOptions
+      theme: 'snow',
+      toolbar: toolbarOptions,
+      clipboard: {
+        allowed: {
+            tags: ['a', 'b', 'strong', 'u', 's', 'i', 'p', 'br', 'ul', 'ol', 'li', 'span'],
+            attributes: ['href', 'rel', 'target', 'class']
+        },
+        keepSelection: true,
+        substituteBlockElements: true,
+        magicPasteLinks: true,
+        hooks: {
+            uponSanitizeElement(node, data, config) {
+                console.log(node);
+            },
+        },
     },
-    theme: 'snow'
-  });
+},
+     
+    },
+    
+  );
 
   export default quill;

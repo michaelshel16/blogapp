@@ -4,7 +4,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height:70vh;
+    height:100vh;
     gap:1rem;
     background-color:silver;
     border-radius: 1rem;
@@ -13,6 +13,7 @@
 .edit-post-title
 {
     width:100%;
+    margin-top: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -34,11 +35,11 @@
     align-items: center;
     
 }
-.edit-post-content textarea
+.edit-post-content-editor
 {
-    width:50%;
+    width:80%;
     height:100%;
-    padding: 0.5rem;
+    overflow-y: auto;
     
 }
 .edit-post-image

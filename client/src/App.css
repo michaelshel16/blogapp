@@ -2,3 +2,7 @@
   margin:0;
   padding: 0;
 }
+.ql-container.ql-snow
+{ background-color: white;
+  height:400px;
+}
