@@ -4,6 +4,8 @@ const User         = require("../model/User.js");
 const Post         = require("../model/Post.js");
 const { response } = require('express');
 const fs           = require("fs");
+const nodemailer   = require('nodemailer');
+
 
 
 
@@ -56,6 +58,54 @@ const fs           = require("fs");
 
 }
 
+const googleAccountRegister = async(req,res) =>
+{
+   try
+   {
+    const
+    {
+      name,
+      email,
+      
+      
+    } = req.body
+    const salt         = await bcrypt.genSalt()
+    const firstName    = name.split('')[0];
+    const templastName = name.split('')[1];
+    const surName      = "no last name"
+    let lastName       = ""
+    templastName===""?lastName=surName:lastName=templastName
+    const passwordHash = await bcrypt(firstName,salt)
+     
+    const findUser = await User.findOne({email:email});
+
+    if(!findUser)
+    {
+      const newUser = new User({
+
+        firstName:firstName,
+        lastName:lastName,
+        email:email,
+        password :passwordHash    
+      })
+
+      const savedUser = await newUser.save()
+      res.status(201).json(savedUser)
+    }
+    else
+  {
+    res.status(401).json({message:"User already exist"})
+  }
+  } 
+  catch (error) 
+  {
+      res.status(500).json({error:error.message});
+  }
+    
+
+  }
+
+
 const login = async(req,res)=>
 {
    try
@@ -91,6 +141,62 @@ const login = async(req,res)=>
    }
 
 
+}
+
+const gmailLogin = async (req,res)=>
+{ 
+  try 
+{   
+  
+const{email,tokenId} = req.body
+  
+const user = User.findOne({email:email})
+if(!user)
+{
+  res.status(400).json({message:"User doesn't exist"})
+}
+
+else
+{
+  const token = tokenId
+
+  res.status(200).json({token,user})
+}
+
+  
+} catch (error) {
+    res.status(500).json({error:error.message})
+}
+  
+ 
+
+
+}
+
+const passwordReset = (req,res) =>
+{  const {email,Otp} = req.body
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: `${process.env.ADMIN_EMAIL}`,
+      pass: `${process.env.ADMIN_EMAIL_PASSWORD}`
+    }
+  });
+  
+  var mailOptions = {
+    from: `${process.env.ADMIN_EMAIL}`,
+    to: `${email}`,
+    subject: 'Password Recovery Mail',
+    text: `Your OTP for password reset is ${Otp}`
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
 }
 
 const createPost = async(req,res)=>{
@@ -259,7 +365,7 @@ const getReviewPosts = async(req,res)=>
 const getBusinessPosts = async(req,res)=>
 {
   try 
-  {
+  {                       
     
     const posts  = await Post.find({postType:"business"})
 
@@ -332,4 +438,7 @@ const updatePost = async(req,res)=>{
 }
 
 
-module.exports = {register,login,createPost,getUserPosts,deletePost,updatePost,getTechPosts,getBusinessPosts,getReviewPosts,getPost}
+module.exports = {register,login,createPost,getUserPosts
+  ,deletePost,updatePost,getTechPosts,
+  getBusinessPosts,getReviewPosts,getPost,passwordReset,
+  googleAccountRegister,gmailLogin}
