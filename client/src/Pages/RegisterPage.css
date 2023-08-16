@@ -1,5 +1,6 @@
 .register-container
 {   display:flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height:70vh;
@@ -58,3 +59,19 @@
 {
     color:red;
 }
+.google-signup
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+.google-signup button
+{
+    
+    color: #0A1026;
+    padding: 0.5rem;
+    border-style: none;
+}
+

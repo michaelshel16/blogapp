@@ -6,6 +6,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
+import {FcGoogle} from "react-icons/fc";
+import { signInWithGoogle } from '../components/Firebase.jsx';
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required") ,
@@ -25,9 +27,9 @@ const registerSchema = yup.object().shape({
   }
 
 const RegisterPage = () => {
-     
-    const navigate = useNavigate();
-    const dispatch =  useDispatch();
+    
+    const navigate                         = useNavigate();
+    const dispatch                         =  useDispatch();
 
     const handleFormSubmit = async(values,onSubmitProps) =>
     {  
@@ -44,12 +46,37 @@ const RegisterPage = () => {
       
       onSubmitProps.resetForm();
 
-     navigate("/home");
+  
+     navigate("/home")
+        alert("User sucessfully registered Please login")
       
       
     }
 
-   
+   const googleSubmit = () =>
+   {
+       signInWithGoogle()
+       .then((result)=>
+       {
+        const user = 
+        {
+          email:result.user.email,
+          name:result.user.displayName
+        }
+       
+
+        axios.post("http://localhost:4000/blog/v1/googleRegister", user)
+        .then((res)=>
+        {
+          console.log(res);
+        })
+
+        navigate("/home")
+        alert("User sucessfully registered Please login")
+         
+       })
+       
+   }
 
 
 
@@ -118,6 +145,7 @@ const RegisterPage = () => {
             <button type='submit'>Submit</button>
            </div>
            
+           
         </div>
          
       </form>
@@ -127,6 +155,13 @@ const RegisterPage = () => {
         )}
         
       </Formik>
+      <div className='google-signup'>
+             
+            <button type='submit' onClick={()=>googleSubmit()}>
+              Sign Up with Google <FcGoogle/></button>
+             
+             
+      </div>
     </div>
   )
 }

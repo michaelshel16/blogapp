@@ -7,7 +7,8 @@ import {store} from "../main.jsx";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import quill from '../components/EditorModule';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserPosts } from '../State';
 
 
 
@@ -28,6 +29,9 @@ const EditPost = () => {
   
   })
 
+  const dispatch  = useDispatch();
+  let   posts     = useSelector((state)=>state.userPosts)
+
   const contentHandler = (value)=>
   {
     setPostData((prev)=>{
@@ -45,6 +49,7 @@ const EditPost = () => {
     const user   = state.user
     const token  = state.token;
     const post   = state.editPost;
+    let lastName = ""
  
     console.log(post)
     console.log(token)
@@ -57,7 +62,8 @@ const EditPost = () => {
     formData.append("userId",user._id)
     
     formData.append("email",user.email)
-    formData.append("author",user.firstName+" "+user.lastName)
+    user.lastName==="no last name"?lastName="":lastName=user.lastName
+    formData.append("author",user.firstName+" "+lastName)
  
     console.log(formData.get("content"));
  
@@ -66,6 +72,12 @@ const EditPost = () => {
     {headers:{
      "Content-Type":"multipart/form-data",
      "Authorization":`Bearer ${token}`}})
+     .then((res)=>
+     { posts.push(res.data)
+       dispatch(setUserPosts({
+          userPosts:posts
+       }))
+     })
  
  }
   
