@@ -15,6 +15,7 @@ import ReviewsPage from './Pages/ReviewsPage';
 import PostPage from './components/PostPage';
 import { useSelector } from 'react-redux';
 import EditPost from './Pages/EditPost';
+import PasswordReset from './Pages/PasswordReset';
 
 function App() {
   
@@ -40,7 +41,7 @@ function App() {
              element =  {isAuth?<NewPost/>:<Navigate to="/"/>}/>
           <Route path = '/editpost'
              element =  {isAuth?<EditPost/>:<Navigate to="/"/>}/>
-
+          <Route path = '/passwordreset'    element =  {<PasswordReset/>}/>
           <Route path = '/posts/tech'       element =  {<TechPage/>}/>
           <Route path = '/posts/business'   element =  {<BusinessPage/>}/>
           <Route path = '/posts/reviews'    element =  {<ReviewsPage/>}/>

@@ -57,22 +57,30 @@ const RegisterPage = () => {
    {
        signInWithGoogle()
        .then((result)=>
-       {
+       { console.log(result.user)
+       
         const user = 
         {
           email:result.user.email,
           name:result.user.displayName
         }
-       
-
+        
+        if(user)
+        {
         axios.post("http://localhost:4000/blog/v1/googleRegister", user)
         .then((res)=>
         {
           console.log(res);
         })
+        }
+        else
+        {
+          alert("No google account")
+        }
+        
 
-        navigate("/home")
-        alert("User sucessfully registered Please login")
+        navigate("/login")
+        
          
        })
        

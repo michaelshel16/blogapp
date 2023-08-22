@@ -22,6 +22,7 @@
     "dayjs": "^1.11.8",
     "firebase": "^10.1.0",
     "formik": "^2.4.1",
+    "mui-one-time-password-input": "^2.0.0",
     "quill-paste-smart": "^1.4.12",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
