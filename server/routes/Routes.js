@@ -8,8 +8,15 @@ router.post("/register",controller.register);
 
 router.post("/login",controller.login);
 
+router.post("/googleRegister",controller.googleAccountRegister);
 
+router.post("/gmaillogin",controller.gmailLogin);
 
+router.post("/finduser",controller.findUser);
+
+router.patch("/passwordreset/user",controller.passwordReset);
+
+router.post("/passwordverify/user",controller.passwordResetVerify);
 
 
 router.delete("/:postId/post",verifyToken,controller.deletePost);
