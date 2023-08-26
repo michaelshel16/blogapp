@@ -173,17 +173,17 @@ const gmailLogin = async (req,res)=>
   try 
 {   
   
-const{email,tokenId} = req.body
+const{email,token} = req.body
   
-const user = User.findOne({email:email})
+const user = await User.findOne({email:email})
 if(!user)
 {
-  res.status(400).json({message:"User doesn't exist"})
+  res.status(401).json({message:"User doesn't exist"})
 }
 
 else
 {
-  const token = tokenId
+ 
 
   res.status(200).json({token,user})
 }
@@ -273,12 +273,10 @@ const passwordReset = async (req,res) =>
 
       const salt            = await bcrypt.genSalt()
       const passwordHash    = await bcrypt.hash(newPassword,salt);
-      const filter          = {email:email}
-      const update          = {password:passwordHash}
-      const updatedUser     =  User.findOneAndUpdate(filter,
-         update,{new:true}
-       
-        )
+      
+      const updatedUser     =await User.findOneAndUpdate(
+        {email:email},{password:passwordHash},
+        {new:true})
 
       if(updatedUser)
       {
