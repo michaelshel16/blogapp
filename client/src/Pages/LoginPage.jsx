@@ -12,19 +12,23 @@ import { signInWithGoogle } from '../components/Firebase';
 
 
 
-
 const LoginPage = () => {
   const [email,setEmail]         = useState("");
   const [password,setPassword]   = useState("");
   const [isclicked,setisclicked] = useState(false); 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   
   
 
-  const handleFormSubmit = async()=>
-  {  
-    axios.post("http://localhost:4000/blog/v1/login",values,
+  const handleFormSubmit = (e)=>
+  { e.preventDefault() 
+    const UserCredentials = {
+      email:email,
+      password:password
+    }
+    axios.post("http://localhost:4000/blog/v1/login",UserCredentials,
     {
       headers:{"Content-type":"application/json"}
     }).then((res)=>
@@ -55,62 +59,66 @@ const LoginPage = () => {
       
     })
      
-     const passwordReset = async()
+   
    
       
-  onSubmitProps.resetForm()
+  
      
 
 
   }
 
-  const googleLogin = ()=>
-  {
-    signInWithGoogle()
-    .then((result)=>
+  const googleLogin = async (e)=>
+  { e.preventDefault()
+    try
+    
     {
-      const UserCredentials = {
-        email:result.user.email,
-        tokenId:result.user.getIdToken()
-      }
-
-      axios.post("http://localhost:4000/blog/v1/login",UserCredentials,
+      const result = await signInWithGoogle()
+    const email  = result.user.email
+    const token  = await result.user.getIdToken()
+    const UserCrendentials = 
       {
-      headers:{"Content-type":"application/json"}
-    }).then((res)=>
-    {
-      const loggedInResponse = res.data;
-       console.log(loggedInResponse);
-       dispatch(setLogin({
-        user :loggedInResponse.user,
-        token:loggedInResponse.token,
-        
-      }))
-
-       if(loggedInResponse)
-       { axios.get(`http://localhost:4000/blog/v1/${loggedInResponse.user._id}/posts`,
-       {headers:{"Authorization":`Bearer ${loggedInResponse.token}`}}
-     
-     ).then((res)=>
-     { console.log(res.data);
+        email:email,
+        token:token
+      } 
+    const Userdata = await axios.post("http://localhost:4000/blog/v1/gmaillogin",
+      UserCrendentials)
+    
+      if(Userdata)
+      {
+        dispatch(setLogin({
+          user:Userdata.data.user,
+          token:token
+        }))
        
-       dispatch(setUserPosts({
-        userPosts:res.data
-       }))
-     })
-     navigate("/")
-        
-        
+        const UserPosts = await
+         axios.get(`http://localhost:4000/blog/v1/${Userdata._id}/posts`,
+        {headers:{Authorization:`Bearer ${UserCrendentials.token}`}})
+
+         dispatch(setUserPosts({
+          userPosts:UserPosts.data
+         }))
+         navigate("/") 
       }
       
-    })
-
-    })  
-  }
-
-  const handlePasswordReset = async () =>
-  { 
+    } 
+    catch (error) 
+    { alert("Please Signup with google")
+      navigate("/register")
+    }
     
+     
+     
+   
+    
+      
+    }
+     
+   
+
+  const handlePasswordReset = async (e) =>
+  { 
+    e.preventDefault()
     
     try 
     {
@@ -150,7 +158,7 @@ const LoginPage = () => {
          onChange=
         {e=>setEmail(e.target.value)} placeholder='Enter your email Id'/>
         <div>
-        <button onClick={()=>{handlePasswordReset()}}>SUBMIT</button>
+        <button onClick={(e)=>{handlePasswordReset(e)}}>SUBMIT</button>
       </div>
       </div>:
       <div>
@@ -197,7 +205,7 @@ const LoginPage = () => {
  </div>
  
      <div className='google-login-signin'>
-     <button type='submit' onClick={()=>{googleLogin()}}>
+     <button  onClick={(e)=>googleLogin(e)}>
            Sign In with Google <FcGoogle/></button>
      </div>
     

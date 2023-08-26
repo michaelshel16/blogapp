@@ -32,13 +32,19 @@ console.log(user);
       <div className='navbar-authentication'>
           <div className='navbar-login'>
             {user?<span >{"Hi  "+ user.firstName}</span>
-            :<span onClick={()=>{navigate("/login")}}>login</span>} 
+            :<span onClick={(e)=>{
+              e.preventDefault()
+              navigate("/login")}}>login</span>} 
            </div>
           <div className='navbar-register'>
-           {user?<span onClick={()=>{navigate("/posts")}}>Posts</span>:<span onClick={()=>{navigate("/register") ,dispatch(setLogin(null))}}>Register</span>}
+           {user?<span onClick={(e)=>{
+            e.preventDefault()
+            navigate("/posts")}}>Posts</span>:<span onClick={()=>{navigate("/register") ,dispatch(setLogin(null))}}>Register</span>}
           </div>
           <div className='navbar-logout'>
-           {user?<span onClick={()=>{navigate("/"),dispatch(setLogout())}}>Logout</span> :""}
+           {user?<span onClick={(e)=>{
+            e.preventDefault()
+            navigate("/"),dispatch(setLogout())}}>Logout</span> :""}
           </div>
       </div>
       

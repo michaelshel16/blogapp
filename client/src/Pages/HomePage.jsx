@@ -53,15 +53,21 @@ const HomePage = () => {
      
     },[])
 
-    const techPosts     = useSelector((state)=> state.techPosts)
-    const reviewsPosts  = useSelector((state)=> state.reviewsPosts)
-    const businessPosts = useSelector((state)=> state.businessPosts);
-    const HomePageArray = techPosts.concat(reviewsPosts,businessPosts);
-    const length        = HomePageArray.length
-    const Array = arrayPusher()
-    const postArray  = postGenerator();
-   const HeaderPost = postArray[0];
-   const BgPost     = postArray[1]; 
+    const techPosts      = useSelector((state)=> 
+                                       state.techPosts)
+    const reviewsPosts   = useSelector((state)=> 
+                                       state.reviewsPosts)
+    const businessPosts  = useSelector((state)=> 
+                                       state.businessPosts);
+    const HomePageArray  = techPosts.concat(reviewsPosts,
+                                       businessPosts);
+    const length         = HomePageArray.length
+    const Array          = arrayPusher()
+    const postArray      = postGenerator();
+    const HeaderPost     = postArray[0];
+    const BgPost         = postArray[1];
+
+
    function arrayPusher ()
    {
      
@@ -70,16 +76,16 @@ const HomePage = () => {
 
     while(IndexArray.length<5)
     {
-      let candidateInt = Math.floor(Math.random()*length)+1
+      let candidateInt = Math.floor(Math.random()*length-1)+1
       if(IndexArray.indexOf(candidateInt)===-1)
       IndexArray.push(candidateInt)
     }
-
+     console.log(IndexArray);
     for(let i=0;i<5;i++)
     {
-      array[i] = HomePageArray[IndexArray[i]]
+      array.push(HomePageArray[IndexArray[i]]) 
     }
-      
+    console.log(array);  
     return(array)
    }
 
@@ -101,6 +107,7 @@ const HomePage = () => {
    
   console.log(Array)
     
+
     
 
     

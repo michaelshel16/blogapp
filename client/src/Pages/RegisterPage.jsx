@@ -70,7 +70,15 @@ const RegisterPage = () => {
         axios.post("http://localhost:4000/blog/v1/googleRegister", user)
         .then((res)=>
         {
-          console.log(res);
+        if(res.status==401)
+        {
+          alert("User already registered please login")
+          navigate("/login")
+        }
+        else
+        {
+          alert("User sucessfully registered")
+        }
         })
         }
         else

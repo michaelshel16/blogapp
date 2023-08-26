@@ -20,43 +20,67 @@ const PasswordReset = () => {
    
     
 
-   const handleOtpSubmit = (e)=>
-   {
-     e.preventDefault();
-
-     Otp===otp?setverified(true):setverified(false)
+   const handleOtpSubmit = ()=>
+   { console.log(otp)
+     console.log(Otp)
+    if(Otp == otp)
+    {
+      setverified(true)
+    }
+    else
+    {
+      setverified(false);
+    }
+     
 
    }
 
-   const handlePasswordSubmit = async(e) =>
-   { e.preventDefault()
-    password!==confirmpaswword?setpasswordCheck(false):setpasswordCheck(true)
-    try 
-    {
-     const response = await axios.patch("http://localhost:4000/blog/v1/passwordreset/user",
-    {
-      email:email,
-      password:password
-    })
-    response.status===200?navigate("/login"):navigate("/home")
-    } 
-    catch (error) 
-    {
-        console.log(error);
-    }
+   const handlePasswordSubmit = () =>
+   { 
+     if(confirmpaswword == newpassword)
+     {
+
+      axios.patch("http://localhost:4000/blog/v1/passwordreset/user",
+      {
+        email:email,
+        newPassword:password
+      })
+      .then((res)=>
+      {
+        if(res.status == 200)
+        {
+          navigate("/login")
+        }
+        else
+        {
+          navigate("/home")
+        }
+      })
+      .catch((error)=>
+      {
+        console.log(error)
+      })
+     }
+     else
+     {
+      setpasswordCheck(false)
+     }
     
    }
   return (
     <div className='reset-container'>
       {
-          verified?
+         verified?
           <div className='set-password'>
-            <input placeholder='Enter new password' onChange={(event)=>{setnewpassword(event.target.value)}}/>
-            <input placeholder='Confirm password' onChange={(event)=>{setconfirmpassword(event.target.value)}}/>
+            <input placeholder='Enter new password' 
+            onChange={(event)=>{setnewpassword(event.target.value)}}/>
+            <input placeholder='Confirm password' 
+            onChange={(event)=>{setconfirmpassword(event.target.value)}}/>
             
             {Boolean(passwordCheck)?<div>{""}</div>:
               <div>password doesn't match</div>}
-              <button onClick={(e)=>handlePasswordSubmit(e)}>SUBMIT</button>
+
+              <button onClick={()=>handlePasswordSubmit()}>SUBMIT</button>
             
           </div>:
            <div className='otp-input'>
@@ -69,7 +93,7 @@ const PasswordReset = () => {
             onChange={(newValue)=>{setotp(newValue)}}  />
 
            
-           <button onClick={(e)=>handleOtpSubmit(e)}>SUBMIT</button>
+           <button onClick={()=>handleOtpSubmit()}>SUBMIT</button>
            </div>
       }
       
