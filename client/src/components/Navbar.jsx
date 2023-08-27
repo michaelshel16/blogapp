@@ -16,7 +16,9 @@ console.log(user);
     <div className='navbar-container'>
       <div className='navbar-logo'>
          <img src= {logo} alt = "Logo not available"/>
-
+         <span onClick={()=>{navigate("/")}}>
+          HOME
+         </span>
       </div>
       <div className='navbar-specifics'>
          <div className='navbar-tech' onClick={()=> navigate("posts/tech")}>
@@ -39,12 +41,14 @@ console.log(user);
           <div className='navbar-register'>
            {user?<span onClick={(e)=>{
             e.preventDefault()
-            navigate("/posts")}}>Posts</span>:<span onClick={()=>{navigate("/register") ,dispatch(setLogin(null))}}>Register</span>}
+            navigate("/posts")}}>Posts</span>:<span onClick={()=>{navigate("/register") ;
+            dispatch(setLogin(null))}}>Register</span>}
           </div>
           <div className='navbar-logout'>
            {user?<span onClick={(e)=>{
             e.preventDefault()
-            navigate("/"),dispatch(setLogout())}}>Logout</span> :""}
+            navigate("/") ;
+            dispatch(setLogout())}}>Logout</span> :""}
           </div>
       </div>
       

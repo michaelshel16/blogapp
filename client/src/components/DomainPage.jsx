@@ -17,7 +17,7 @@ const newsLetterSchema = yup.object().shape({
 const initalnewsLetter = { email:''}
 
 
-const DomainPage = ({posts}) => {
+const DomainPage = ({posts ,Adimages}) => {
 
   const navigate = useNavigate();
   const handleEmailSubmit = async(values,onSubmitProps) =>{
@@ -40,7 +40,7 @@ const DomainPage = ({posts}) => {
   return (
     
     <div>
-        <AdBox/>
+        <AdBox Adimages = {Adimages}/>
         <Container>
       <div className='domain-page-container'>
         <div className='domain-page-big-post'>

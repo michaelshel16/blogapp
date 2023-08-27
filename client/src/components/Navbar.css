@@ -12,8 +12,20 @@
 {
     width:20%;
     height:50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #E6CF37;
     overflow: hidden;
+
 }
+
+.navbar-logo span
+{
+  cursor: pointer;
+  font-family:"Rubik" ,sans-serif;
+}
+
 
 .navbar-logo img
 {

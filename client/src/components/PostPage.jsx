@@ -8,7 +8,7 @@ import { useState ,useEffect} from 'react';
 import axios from 'axios';
 
 
-const PostPage = ({data}) => {
+const PostPage = () => {
   
   const location = useLocation();
   const post     = location.state

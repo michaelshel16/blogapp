@@ -135,22 +135,21 @@ const LoginPage = () => {
         })
         navigate("/passwordreset",{state:{Otp:Otp,email:email}})
       }
-      else
-      {
-        alert("User not found")
-      }
+      
     
-  } catch (error)
+    }
+   catch (error)
    {
-      console.log(error);
-  }
+     alert("Please register or signup")
+     navigate("/register"); 
+   }
     
    
   }
   
 
   return (
-    <div>
+    <div className='container-lg'>
          {
           isclicked?
           <div className='reset-email'>
@@ -161,7 +160,7 @@ const LoginPage = () => {
         <button onClick={(e)=>{handlePasswordReset(e)}}>SUBMIT</button>
       </div>
       </div>:
-      <div>
+      
       <div className='login-container' >
        <div className='login-form-container'>
        <form className='login-form' onSubmit={handleFormSubmit}>
@@ -205,12 +204,13 @@ const LoginPage = () => {
  </div>
  
      <div className='google-login-signin'>
+      <h3>Or</h3>
      <button  onClick={(e)=>googleLogin(e)}>
            Sign In with Google <FcGoogle/></button>
      </div>
     
  </div>
-      </div>
+  
          }
          
         
