@@ -7,7 +7,9 @@ import {store} from "../main.jsx";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import quill from '../components/EditorModule';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserPosts } from '../State';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -18,50 +20,76 @@ import { useSelector } from 'react-redux';
 
 const EditPost = () => {
   const [postData,setPostData] = useState({
-    title:"",
-    subtitle:"",
-    postType:"",
-    content:"",
-    image  :"",
-    date   :""
+    title:'',
+    subtitle:'',
+    postType:'',
+    content:'',
+    imageContent  :'',
+    date   :''
     
   
   })
+  const dispatch = useDispatch() 
+  const navigate = useNavigate()
+  const state    = store.getState();
+  const user     = state.user
+  const token    = state.token;
+  const post     = state.editPost;
+  let posts      = state.userPosts;
   
   
-  const handleFormSubmit = (e)=>{
+  const handleFormSubmit = async(e)=>{
 
     e.preventDefault();
-    const state = store.getState();
-    
-    const user   = state.user
-    const token  = state.token;
-    const post   = state.editPost;
- 
+    try 
+    {
+      
     console.log(post)
     const formData = new FormData();
     for(let value in postData)
     {
      formData.append(value,postData[value])
     }
-    formData.append("image",postData.image)
+    formData.append("deleteimage",post.image)
+    formData.append("image",postData.imageContent.name)
     formData.append("userId",user._id)
     formData.append("postId",post._id)
     formData.append("email",user.email)
     formData.append("author",user.firstName+" "+user.lastName)
+    
+   
  
-    console.log(formData);
- 
-    axios.patch("http://localhost:4000/blog/v1/editpost"
+   const updatedPost = axios.patch("http://localhost:4000/blog/v1/editpost"
     ,formData,
     {headers:{
      "Content-Type":"multipart/form-data",
      "Authorization":`Bearer ${token}`}})
+
+    
+    
+     let editedArray = [];
+     editedArray     =  posts.filter((item)=>
+     {
+       return  item._id !== post._id
+     })
+     
+     editedArray.push(updatedPost)
+
+     dispatch(setUserPosts({
+      userPosts:editedArray
+     }))
+     navigate("/posts")
+    } 
+    catch (error) 
+    {
+      console.log(error)
+    }
+    
  
  }
   
   
-  const post = useSelector((state)=>state.editPost)
+ 
   console.log(post)
   return (
   <Container>
@@ -70,6 +98,8 @@ const EditPost = () => {
         <form onSubmit={handleFormSubmit}>
           <div className='edit-post-container'>
                 <div className='edit-post-title'>
+                  <h4>You have to fill up all the fields</h4>
+                  <label>Title</label>
                   <input name='title' 
                     
                     
@@ -79,6 +109,7 @@ const EditPost = () => {
                   
                 </div>
                <div className='edit-post-sub-title'>
+                <label>Subtitle</label>
                   <input name='subtitle' 
                     onChange={e=>setPostData({...postData,subtitle:e.target.value})}
                   
@@ -111,7 +142,7 @@ const EditPost = () => {
                 
                  modules={quill.modules} 
                  name = "content"
-                onChange={e=>setPostData({...postData,title:e.target.value})} 
+                onChange={e=>setPostData({...postData,content:e.target.value})} 
                 />
                  
                   </div>
@@ -123,7 +154,7 @@ const EditPost = () => {
                    acceptedFiles = ".jpg,.jpeg,.png"
                    multiple = {false}
                    
-                    onDrop={(acceptedFiles)=>setPostData({...postData,image:acceptedFiles[0].name})}
+                    onDrop={(acceptedFiles)=>setPostData({...postData,imageContent:acceptedFiles[0]})}
                    name = "image"
                  >
                    {({getRootProps,getInputProps})=>
@@ -132,7 +163,7 @@ const EditPost = () => {
                        <div {...getRootProps()} className='edit-post-image-dropzone'>
                              
                           <input {...getInputProps()}/>
-                          {!postData.image?(<p>Drag or Click here to insert Picture</p>):(<p>{postData.image}</p>)}
+                          {!postData.imageContent?(<p>Drag or Click here to insert only HD Picture</p>):(<p>{postData.imageContent.name}</p>)}
                        </div>
                              
 

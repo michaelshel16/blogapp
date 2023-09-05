@@ -14,6 +14,7 @@ const initialState =
    token:null,
 }
 
+
  const authSlice = createSlice({
 
 name:"auth",
@@ -59,7 +60,7 @@ reducers:{
         state.user       = initialState.user
         state.token      = initialState.token
         state.userPosts  = initialState.userPosts
-        state.editPostId = initialState.editPostId
+        state.editPost   = initialState.editPost
     }
 }
 

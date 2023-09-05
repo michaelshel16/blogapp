@@ -73,13 +73,13 @@ const LoginPage = () => {
     try
     
     {
-      const result = await signInWithGoogle()
+    const result = await signInWithGoogle()
     const email  = result.user.email
-    const token  = await result.user.getIdToken()
+   
     const UserCrendentials = 
       {
         email:email,
-        token:token
+        
       } 
     const Userdata = await axios.post("http://localhost:4000/blog/v1/gmaillogin",
       UserCrendentials)
@@ -88,13 +88,15 @@ const LoginPage = () => {
       {
         dispatch(setLogin({
           user:Userdata.data.user,
-          token:token
+          token:Userdata.data.token
         }))
-       
+       const user  = Userdata.data.user;
+       const token = Userdata.data.token;
         const UserPosts = await
-         axios.get(`http://localhost:4000/blog/v1/${Userdata._id}/posts`,
-        {headers:{Authorization:`Bearer ${UserCrendentials.token}`}})
-
+         axios.get(`http://localhost:4000/blog/v1/${user._id}/posts`,
+        {headers:{Authorization:`Bearer ${token}`}})
+        
+        console.log(UserPosts)
          dispatch(setUserPosts({
           userPosts:UserPosts.data
          }))
@@ -103,7 +105,7 @@ const LoginPage = () => {
       
     } 
     catch (error) 
-    { alert("Please Signup with google")
+    { 
       navigate("/register")
     }
     

@@ -8,7 +8,7 @@
     gap:1rem;
     background-color:silver;
     border-radius: 1rem;
-    
+    padding: 1rem;
 }
 .edit-post-title
 {
@@ -18,12 +18,27 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
 }
 .edit-post-title input
 {
     width:50%;
     padding: 0.5rem;
+    outline: none;
     
+}
+.edit-post-sub-title
+{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+}
+.edit-post-sub-title input
+{   width:50%;
+    padding: 0.5rem;
+    outline:none;
 }
 .edit-post-content
 {

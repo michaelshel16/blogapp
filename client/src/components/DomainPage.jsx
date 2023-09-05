@@ -67,12 +67,12 @@ const DomainPage = ({posts ,Adimages}) => {
             { posts.map((item,index)=>
               
             ( 
-              <div onClick={()=>navigate("/post",{state:item})}>
+             
             <BlogCard
-         
+            onClick={()=>navigate("/post",{state:item})}
             key = {index} 
             post={item}/>
-            </div>))
+            ))
              
             }
             

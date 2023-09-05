@@ -31,15 +31,20 @@ const UserPostsPage = () => {
       dispatch(setEditPost({
         editPost:post}
       ))
+     
+      
       navigate("/editpost")
     }
    
     
      const handleDelete = async (post)=>
-     { const postId = post._id
+     { 
+      const postId      = post._id
+      const deleteimage = post.image
       console.log(post._id)
-      axios.delete(`http://localhost:4000/blog/v1/${postId}/post`,
+      axios.delete(`http://localhost:4000/blog/v1/${postId}/${deleteimage}/post`,
       {headers:{Authorization:`Bearer ${token}`}}
+      
       
      
      ).then((res)=>
@@ -82,12 +87,12 @@ const UserPostsPage = () => {
          (
           <div className='user-posts-container' key={index}>
           <div className='user-posts-image' onClick={()=> {
-            navigate("/post"),dispatch(setPost({post:item}))}}>
+            navigate("/post",{state:item})}}>
             <img src={`http://localhost:4000/assets/${item.image}`}
             alt='no image available'/>
           </div>
           <div className='user-posts-title'  onClick={()=> {
-            navigate("/post"),dispatch(setPost({post:item}))}}>
+            navigate("/post",{state:item})}}>
           {item.title}
           </div>
           <div className='user-posts-operations'>

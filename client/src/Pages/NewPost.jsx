@@ -9,6 +9,7 @@ import "react-quill/dist/quill.snow.css";
 import quill from '../components/EditorModule';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserPosts } from '../State';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -17,21 +18,31 @@ import { setUserPosts } from '../State';
 
 
 
-const EditPost = () => {
+const NewPost = () => 
+{
   const [postData,setPostData] = useState({
-    title:"",
-    subtitle:"",
-    postType:"",
-    content:"",
-    image  :"",
-    date   :""
+    title:'',
+    subtitle:'',
+    postType:'',
+    imageContent:'',
+    content:'',
+    date   :''
     
   
   })
 
-  const dispatch  = useDispatch();
-  let   posts     = useSelector((state)=>state.userPosts)
+  
 
+  const dispatch  = useDispatch();
+  const navigate  = useNavigate();
+  const state     = store.getState();
+  const user      = state.user
+  const token     = state.token;
+  const post      = state.editPost;
+  let posts       = []
+  posts           = state.userPosts
+  
+  
   const contentHandler = (value)=>
   {
     setPostData((prev)=>{
@@ -41,14 +52,12 @@ const EditPost = () => {
   }
   
   
-  const handleFormSubmit = (e)=>{
-
+  const handleFormSubmit = async(e)=>{
     e.preventDefault();
-    const state = store.getState();
+    try {
     
-    const user   = state.user
-    const token  = state.token;
-    const post   = state.editPost;
+      console.log(postData)
+  
     let lastName = ""
  
     console.log(post)
@@ -58,32 +67,40 @@ const EditPost = () => {
     {
      formData.append(value,postData[value])
     }
-  
+    formData.append("image",postData.imageContent.name)
     formData.append("userId",user._id)
     
     formData.append("email",user.email)
     user.lastName==="no last name"?lastName="":lastName=user.lastName
+ 
+    
     formData.append("author",user.firstName+" "+lastName)
+     
+
+   
  
-    console.log(formData.get("content"));
- 
-    axios.post("http://localhost:4000/blog/v1/user/posts"
+   const newPost = await axios.post("http://localhost:4000/blog/v1/user/posts"
     ,formData,
     {headers:{
      "Content-Type":"multipart/form-data",
      "Authorization":`Bearer ${token}`}})
-     .then((res)=>
-     { posts.push(res.data)
-       dispatch(setUserPosts({
-          userPosts:posts
-       }))
-     })
+    
+    
+    posts.push(newPost.data)
+    dispatch(setUserPosts({
+      userPosts:posts
+    }))
+      navigate("/posts")
+    } 
+    catch (error) 
+    {
+      console.log(error) 
+    }}
+    
+    
+  
+  
  
- }
-  
-  
-  const post = useSelector((state)=>state.editPost)
-  console.log(post)
   return (
   <Container>
      
@@ -144,11 +161,13 @@ const EditPost = () => {
                 </div>
                 <div className='post-image'>
                  <Dropzone
-                   acceptedFiles = ".jpg,.jpeg,.png"
+                   /*acceptedFiles = ".jpg,.jpeg,.png"*/
+                   accept= ".jpg,.jpeg,.png"
                    multiple = {false}
+                   name="imageContent"
                    
-                    onDrop={(acceptedFiles)=>setPostData({...postData,image:acceptedFiles[0].name})}
-                   name = "image"
+                   onDrop={(acceptedFiles)=>setPostData({...postData,imageContent:acceptedFiles[0]})}
+                   
                  >
                    {({getRootProps,getInputProps})=>
                    
@@ -156,7 +175,7 @@ const EditPost = () => {
                        <div {...getRootProps()} className='post-image-dropzone'>
                              
                           <input {...getInputProps()}/>
-                          {!postData.image?(<p>Drag or Click here to insert Picture</p>):(<p>{postData.image}</p>)}
+                          {!postData.imageContent?(<p>Drag or Click here to insert Picture</p>):(<p>{postData.imageContent.name}</p>)}
                        </div>
                              
 
@@ -192,7 +211,6 @@ const EditPost = () => {
 
     
   </Container>
-  )
-}
+  )}
 
-export default EditPost
+export default NewPost

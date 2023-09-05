@@ -10,7 +10,8 @@ const BlogCard = ({post}) => {
 
   console.log(post);
   return (
-    <div className='blog-card-container' onClick={()=>navigate("/post",{state:post})}>
+    <div className='blog-card-container' onClick={()=>
+    navigate("/post",{state:post})}>
         <div className='blog-card-image'>
         <img src={`http://localhost:4000/assets/${post.image}`} 
         alt='no image available'/>

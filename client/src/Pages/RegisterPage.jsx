@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./RegisterPage.css";
 import {Formik} from "formik";
 import * as yup from "yup";
@@ -27,7 +27,8 @@ const registerSchema = yup.object().shape({
   }
 
 const RegisterPage = () => {
-    
+   
+   
     const navigate                         = useNavigate();
     const dispatch                         =  useDispatch();
 
@@ -98,6 +99,7 @@ const RegisterPage = () => {
 
 
   return (
+    
     <div className='register-container'>
       <Formik
          onSubmit={handleFormSubmit}

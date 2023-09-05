@@ -25,6 +25,19 @@
     padding: 0.5rem;
     
 }
+.post-sub-title
+{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.post-sub-title input
+{
+    width:50%;
+    padding: 0.5rem;
+}
 .post-content
 {
     width:100%;

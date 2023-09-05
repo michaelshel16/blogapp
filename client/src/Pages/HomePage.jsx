@@ -94,7 +94,7 @@ const HomePage = () => {
    function postGenerator  () 
    {
      let array = [];
-     let IndexArray = [];
+   
 
      HomePageArray.map((item)=>
      {
@@ -108,37 +108,9 @@ const HomePage = () => {
   console.log(Array)
     
 
-    
+    return (
 
-    
-   
-
-
-    
-
-
-    
-
-
-
-
-
-  
-     
-    
-
-  
-    
-    
-    
-     return (
-
-      
-    
-      
-      
-   
-      <div >
+       <div >
         
       <Container>
         
