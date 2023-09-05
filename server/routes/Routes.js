@@ -19,7 +19,7 @@ router.patch("/passwordreset/user",controller.passwordReset);
 router.post("/passwordverify/user",controller.passwordResetVerify);
 
 
-router.delete("/:postId/post",verifyToken,controller.deletePost);
+router.delete("/:postId/:deleteimage/post",verifyToken,controller.deletePost);
 
 router.get("/:userId/posts",verifyToken,controller.getUserPosts);
 

@@ -2,12 +2,9 @@ const bcrypt       = require('bcrypt');
 const jwt          = require('jsonwebtoken');
 const User         = require("../model/User.js");
 const Post         = require("../model/Post.js");
-const { response } = require('express');
-const fs           = require("fs");
 const nodemailer   = require('nodemailer');
-const { error }    = require('console');
 const Mailgen      = require('mailgen');
-
+const fs           = require('fs');
 
 
 
@@ -173,9 +170,11 @@ const gmailLogin = async (req,res)=>
   try 
 {   
   
-const{email,token} = req.body
+const{email} = req.body
   
 const user = await User.findOne({email:email})
+
+const token = jwt.sign({id:user._id},process.env.JWT_CODE)
 if(!user)
 {
   res.status(401).json({message:"User doesn't exist"})
@@ -298,7 +297,7 @@ const createPost = async(req,res)=>{
     
 
     const 
-    {
+    { userId,
       author,
       email ,  
       title ,  
@@ -309,14 +308,8 @@ const createPost = async(req,res)=>{
       date   
     } = req.body
 
-   
-
-    const user = await User.findOne({email:email})
-    
-      const newPost = new Post
-    (
-    {
-      userId  : user._id,
+   const newPost = new Post({
+      userId  : userId,
       author  : author,
       email   : email,
       title   : title,
@@ -327,7 +320,7 @@ const createPost = async(req,res)=>{
       date    : date
     })
 
-    await newPost.save();
+    await newPost.save()
     res.status(201).json(newPost);
     
    
@@ -345,19 +338,15 @@ const deletePost = async(req,res)=>{
      
     try 
     {
-       const {postId}      = req.params
+       const {postId}      = req.params.postId
+       const {deleteimage} = req.params.deleteimage
        const {post}        = Post.findById({_id:postId})
-       const fileName      = post.image
-       const directoryPath = "/public/"
+      
+       const removePath    = `./public/assets/${deleteimage}`
+       
        Post.findByIdAndDelete({_id:postId})
-       .then((response)=>
-       res.status(201).json(response))
        
-
-
-       .catch((error)=>
-       res.json(error))
-       
+       fs.unlink(removePath)
        
     } 
     catch (error) 
@@ -488,12 +477,18 @@ const updatePost = async(req,res)=>{
         content,
         postType,
         image,
+        deleteimage,
         date
        
        
       }  = req.body
       
-      const updatedPost = await Post.findOneAndUpdate({postId:postId},
+      const fileName   = deleteimage
+      const removePath = `./public/assets/${fileName}` 
+
+      fs.unlinkSync(removePath)
+      
+      const updatedPost = await Post.findOneAndUpdate({_id:postId},
         {
         userId:userId,
         author:author,

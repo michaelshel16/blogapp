@@ -1,23 +1,22 @@
-const express          = require('express');
-const app              = express();
-
-const mongoose         = require('mongoose');
-const multer           = require('multer'); 
-const cors             = require('cors');
-const helmet           = require('helmet');
-const morgan           = require('morgan');
-const bodyParser       = require('body-parser');
-
-const verifyToken      = require("./middleware/auth.js");
-const controller       = require("./controllers/Controller.js");
-const path             = require('path');
-const blogRoutes       = require("./routes/Routes.js");
+const express           = require('express');
+const app               = express();
+const mongoose          = require('mongoose');
+const multer            = require('multer'); 
+const cors              = require('cors');
+const helmet            = require('helmet');
+const morgan            = require('morgan');
+const bodyParser        = require('body-parser');
+const verifyToken       = require("./middleware/auth.js");
+const controller        = require("./controllers/Controller.js");
+const path              = require('path');
+const blogRoutes        = require("./routes/Routes.js");
+const url               = require('url');
 
 require('dotenv').config();
 
 
-const port             = process.env.PORT;
-const dataBaseUrl      = process.env.USERS_DATABASE_URL;
+const port              = process.env.PORT;
+const dataBaseUrl       = process.env.USERS_DATABASE_URL;
 app.use(cors());
 app.use(express.json());
 app.use(helmet());
@@ -28,7 +27,7 @@ app.use(morgan("common"));
 
 app.use(bodyParser.json({limit:"30mb",extended:true}));
 app.use(bodyParser.urlencoded({limit:"30mb",extended:true}));
-app.use("/assets", express.static(path.join(__dirname,"/public/assets")));
+app.use("/assets", express.static(path.join(__dirname,"public/assets")));
 
 const storage = multer.diskStorage({
     
@@ -50,9 +49,9 @@ const upload = multer({storage:storage});
 
 
 
-app.post("/blog/v1/user/posts", verifyToken, upload.single('image'),controller.createPost);
-app.patch("/blog/v1/editpost", verifyToken, upload.single('image'),controller.updatePost);
-app.delete("")
+app.post("/blog/v1/user/posts", verifyToken, upload.single("imageContent"),controller.createPost);
+app.patch("/blog/v1/editpost", verifyToken, upload.single("imageContent"),controller.updatePost);
+
 
 app.use("/blog/v1",blogRoutes);
 
@@ -62,7 +61,7 @@ mongoose.connect(dataBaseUrl,{
   });
 
 
-console.log(dataBaseUrl);
+
 
 const db = mongoose.connection;
 
@@ -76,11 +75,12 @@ db.on('error',(error)=>
     console.log(error);
 })
 
-app.listen(port,()=>{`Server is running on ${port}`});
+app.listen(port,()=>{
+ console.log(`Server is running on port ${port}`)});
 
 
 
-console.log(port);
+
 
 
 
