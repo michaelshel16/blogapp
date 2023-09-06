@@ -338,16 +338,17 @@ const deletePost = async(req,res)=>{
      
     try 
     {
-       const {postId}      = req.params.postId
-       const {deleteimage} = req.params.deleteimage
-       const {post}        = Post.findById({_id:postId})
+       const postId        = req.params.postId
+       const deleteimage   = req.params.deleteimage
       
+       
        const removePath    = `./public/assets/${deleteimage}`
        
-       Post.findByIdAndDelete({_id:postId})
+       await Post.findByIdAndDelete(postId)
        
-       fs.unlink(removePath)
        
+       fs.unlinkSync(removePath)
+       res.status(200).json({message:"Post deleted successfully"})
     } 
     catch (error) 
     {
@@ -486,7 +487,13 @@ const updatePost = async(req,res)=>{
       const fileName   = deleteimage
       const removePath = `./public/assets/${fileName}` 
 
-      fs.unlinkSync(removePath)
+
+      if(fileName!==image)
+      {
+        fs.unlinkSync(removePath)
+      }
+      
+     
       
       const updatedPost = await Post.findOneAndUpdate({_id:postId},
         {
