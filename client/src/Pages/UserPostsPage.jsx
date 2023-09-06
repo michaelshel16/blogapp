@@ -1,16 +1,14 @@
 import { Container } from '@mui/material'
-import React, { useEffect } from 'react';
+import React from 'react';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import "./UserPostsPage.css";
 import { useSelector } from 'react-redux';
-
 import axios from 'axios';
 import { setPost,setUserPosts,setEditPost} from '../State';
-import EditPost from './EditPost';
-import PostPage from '../components/PostPage';
+
 
 
 
@@ -41,7 +39,9 @@ const UserPostsPage = () => {
      { 
       const postId      = post._id
       const deleteimage = post.image
+
       console.log(post._id)
+      console.log(post.image)
       axios.delete(`http://localhost:4000/blog/v1/${postId}/${deleteimage}/post`,
       {headers:{Authorization:`Bearer ${token}`}}
       

@@ -1,6 +1,6 @@
 import React from 'react';
 import "./Navbar.css";
-import logo from "../assets/bloglogo.png";
+import logo from "../assets/bloglogo.jpg";
 import { useSelector } from 'react-redux';
 import { setLogin,setLogout } from '../State/index.jsx';
 import { useDispatch } from 'react-redux';
@@ -17,7 +17,7 @@ console.log(user);
       <div className='navbar-logo'>
          <img src= {logo} alt = "Logo not available"/>
          <span onClick={()=>{navigate("/")}}>
-          HOME
+          Home
          </span>
       </div>
       <div className='navbar-specifics'>

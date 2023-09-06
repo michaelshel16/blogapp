@@ -39,8 +39,7 @@ const NewPost = () =>
   const user      = state.user
   const token     = state.token;
   const post      = state.editPost;
-  let posts       = []
-  posts           = state.userPosts
+  const posts     = state.userPosts;
   
   
   const contentHandler = (value)=>
@@ -85,10 +84,17 @@ const NewPost = () =>
      "Content-Type":"multipart/form-data",
      "Authorization":`Bearer ${token}`}})
     
+    let newPosts = [];
     
-    posts.push(newPost.data)
+    posts.map((item)=>
+    {
+      newPosts.push(item)
+    })
+
+    newPosts.push(newPost.data)
+ 
     dispatch(setUserPosts({
-      userPosts:posts
+      userPosts:newPosts
     }))
       navigate("/posts")
     } 

@@ -19,24 +19,34 @@ import { useNavigate } from 'react-router-dom';
 
 
 const EditPost = () => {
-  const [postData,setPostData] = useState({
-    title:'',
-    subtitle:'',
-    postType:'',
-    content:'',
-    imageContent  :'',
-    date   :''
-    
-  
-  })
+ 
   const dispatch = useDispatch() 
   const navigate = useNavigate()
   const state    = store.getState();
   const user     = state.user
   const token    = state.token;
   const post     = state.editPost;
-  let posts      = state.userPosts;
+  const posts    = state.userPosts;
+
+
+  const contentHandler = (value)=>
+  {
+    setPostData((prev)=>{
+    return{
+      ...prev,content:value
+    }})
+  }
   
+  const [postData,setPostData] = useState({
+    title        :post.title,
+    subtitle     :post.subtitle,
+    postType     :post.postType,
+    content      :post.content,
+    imageContent :post.imageContent,
+    date         :post.date
+    
+  
+  })
   
   const handleFormSubmit = async(e)=>{
 
@@ -59,7 +69,7 @@ const EditPost = () => {
     
    
  
-   const updatedPost = axios.patch("http://localhost:4000/blog/v1/editpost"
+   const updatedPost = await axios.patch("http://localhost:4000/blog/v1/editpost"
     ,formData,
     {headers:{
      "Content-Type":"multipart/form-data",
@@ -73,7 +83,7 @@ const EditPost = () => {
        return  item._id !== post._id
      })
      
-     editedArray.push(updatedPost)
+     editedArray.push(updatedPost.data)
 
      dispatch(setUserPosts({
       userPosts:editedArray
@@ -102,7 +112,7 @@ const EditPost = () => {
                   <label>Title</label>
                   <input name='title' 
                     
-                    
+                    value={postData.title}
                     onChange={e=>setPostData({...postData,title:e.target.value})}
                     
                   />
@@ -111,6 +121,7 @@ const EditPost = () => {
                <div className='edit-post-sub-title'>
                 <label>Subtitle</label>
                   <input name='subtitle' 
+                    value={postData.subtitle}
                     onChange={e=>setPostData({...postData,subtitle:e.target.value})}
                   
                     
@@ -125,7 +136,7 @@ const EditPost = () => {
                     <select name='postType' 
                      onChange={e=>setPostData({...postData,postType:e.target.value})}
                      
-                   
+                     value={postData.postType}
                      
                      >
                       <option value={"tech"}>TECH</option>
@@ -138,12 +149,12 @@ const EditPost = () => {
                 <div className='edit-post-content'>
                   <div className='edit-post-content-editor'>
                   <ReactQuill 
-                 theme='snow'
-                
-                 modules={quill.modules} 
-                 name = "content"
-                onChange={e=>setPostData({...postData,content:e.target.value})} 
-                />
+                  theme='snow'
+                  modules={quill.modules} 
+                  name = "content"
+                  onChange={contentHandler} 
+                  defaultValue={postData.content}
+                  />
                  
                   </div>
                 
