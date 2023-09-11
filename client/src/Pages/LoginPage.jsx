@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {setLogin,setUserPosts} from "../State/index.jsx";
 import { signInWithGoogle } from '../components/Firebase';
-
-
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 
 
 
@@ -18,8 +18,11 @@ const LoginPage = () => {
   const [isclicked,setisclicked] = useState(false); 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  
+  const [visiblity,setvisibilty] = useState(false);
+  const handleVisbility = ()=>
+  {
+    setvisibilty(true);
+  }
   
 
   const handleFormSubmit = (e)=>
@@ -181,9 +184,14 @@ const LoginPage = () => {
                <label>
                  password
                </label>
-               <input type='text' placeholder='Enter your password' 
+               <input
+               type={visiblity?"text":"password"} 
+               placeholder='Enter your password' 
                onChange={e=> setPassword(e.target.value)}
                name='password'/>
+               {visiblity?
+               <VisibilityOutlinedIcon color='primary' onClick={()=>handleVisbility()}/>:
+               <VisibilityOffOutlinedIcon color='primary' onClick={()=> handleVisbility()}/>}
                
                </div>
                <div className='submit-button'>

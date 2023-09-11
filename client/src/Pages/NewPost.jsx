@@ -23,13 +23,34 @@ const NewPost = () =>
   const [postData,setPostData] = useState({
     title:'',
     subtitle:'',
-    postType:'',
+    postType:'tech',
     imageContent:'',
     content:'',
     date   :''
     
   
   })
+  const [titleCheck,settitleCheck]                 = useState(true);
+  const [subtitleCheck,setsubtitleCheck]           = useState(true);
+  const [imageContentCheck,setimageContentCheck]   = useState(true);
+  const [contentCheck,setContentCheck]             = useState(true);
+  const [dateCheck,setdateCheck]                   = useState(true);
+  
+
+ 
+  const errorMessages = {
+   
+    tileError:"Provide a title",
+    subtitleError:"Give a subtitle please",
+    contentError:"Give us a content",
+    imageError:"please upload an image",
+    dateError:"select the date"
+
+  }
+
+  
+
+ 
 
   
 
@@ -48,56 +69,88 @@ const NewPost = () =>
     return{
       ...prev,content:value
     }})
+    
   }
   
   
   const handleFormSubmit = async(e)=>{
     e.preventDefault();
     try {
-    
-      console.log(postData)
-  
+      
     let lastName = ""
  
     console.log(post)
     console.log(token)
-    const formData = new FormData();
-    for(let value in postData)
-    {
-     formData.append(value,postData[value])
+   
+    for(let key in postData)
+    { 
+      switch(key)
+      {
+        case'title':
+         postData.title===''?settitleCheck(false):settitleCheck(true)
+        break
+        case'subtitle':
+         postData.subtitle===''?setsubtitleCheck(false):setsubtitleCheck(true)
+        break
+        case'content':
+          postData.content===''?setContentCheck(false):setContentCheck(true)
+         break
+        case'imageContent':
+          postData.imageContent===''?setimageContentCheck(false):setimageContentCheck(true)
+         break
+        case'date':
+           postData.date===''?setdateCheck(false):setdateCheck(true)
+         break
+      }
     }
-    formData.append("image",postData.imageContent.name)
-    formData.append("userId",user._id)
+   
+   
+   
     
-    formData.append("email",user.email)
-    user.lastName==="no last name"?lastName="":lastName=user.lastName
- 
-    
-    formData.append("author",user.firstName+" "+lastName)
-     
 
    
- 
-   const newPost = await axios.post("http://localhost:4000/blog/v1/user/posts"
-    ,formData,
-    {headers:{
-     "Content-Type":"multipart/form-data",
-     "Authorization":`Bearer ${token}`}})
-    
-    let newPosts = [];
-    
-    posts.map((item)=>
+  if((postData.title&&postData.subtitle&&postData.content
+    &&postData.imageContent&&postData))
     {
-      newPosts.push(item)
-    })
-
-    newPosts.push(newPost.data)
- 
-    dispatch(setUserPosts({
-      userPosts:newPosts
-    }))
-      navigate("/posts")
-    } 
+      const formData = new FormData();
+      for(let value in postData)
+      {
+       formData.append(value,postData[value])
+      }
+      formData.append("image",postData.imageContent.name)
+      formData.append("userId",user._id)
+      
+      formData.append("email",user.email)
+      user.lastName==="no last name"?lastName="":lastName=user.lastName
+   
+      
+      formData.append("author",user.firstName+" "+lastName)
+      const newPost = await axios.post("http://localhost:4000/blog/v1/user/posts"
+      ,formData,
+      {headers:{
+       "Content-Type":"multipart/form-data",
+       "Authorization":`Bearer ${token}`}})
+      
+      let newPosts = [];
+      
+      posts.map((item)=>
+      {
+        newPosts.push(item)
+      })
+  
+      newPosts.push(newPost.data)
+   
+      dispatch(setUserPosts({
+        userPosts:newPosts
+      }))
+        navigate("/posts")
+      }
+      else
+      {
+        alert("Please fill all the fields")
+      }
+    }
+    
     catch (error) 
     {
       console.log(error) 
@@ -113,25 +166,22 @@ const NewPost = () =>
 
         <form onSubmit={handleFormSubmit}>
           <div className='post-container'>
-                <div className='post-title'>
+                <div className='post-title' >
                   <label>Title</label>
-                  <input name='title' 
-                    
-                    
-                    onChange={e=>setPostData({...postData,title:e.target.value})}
-                    
-                  />
-                  
+                  <input name="title" 
+                  onChange={e=>setPostData({...postData,title:e.target.value})}
+                 />
+                 <span>{titleCheck?'':errorMessages.tileError}</span>
                 </div>
                <div className='post-sub-title'>
                 <label>Subtitle</label>
                   <input name='subtitle' 
-                    onChange={e=>setPostData({...postData,subtitle:e.target.value})}
-                  
-                    
-                 
-                  
+                    onChange={e=>{
+                     
+                      setPostData({...postData,subtitle:e.target.value}) }}
                   />
+                   <span>{subtitleCheck?'':errorMessages.subtitleError}</span>
+              
                   
                 </div>
 
@@ -140,7 +190,7 @@ const NewPost = () =>
                     <select name='postType' 
                      onChange={e=>setPostData({...postData,postType:e.target.value})}
                      
-                   
+                     
                      
                      >
                       <option value={"tech"}>TECH</option>
@@ -154,33 +204,41 @@ const NewPost = () =>
                   <div className='post-content-editor'>
                   <ReactQuill 
                  theme='snow'
-                
+                 
                  modules={quill.modules} 
                  name = "content"
                  onChange={contentHandler}
                  value={postData.content}
+                
                 />
                  
                   </div>
-                
-                   
+                  
+                <span>{contentCheck?'':errorMessages.contentError}</span>
                 </div>
-                <div className='post-image'>
+                <div className='post-image'
+                
+                >
                  <Dropzone
-                   /*acceptedFiles = ".jpg,.jpeg,.png"*/
-                   accept= ".jpg,.jpeg,.png"
+                   name="imageContent" 
+                   acceptedFiles= ".jpg,.jpeg,.png"
                    multiple = {false}
-                   name="imageContent"
-                   
-                   onDrop={(acceptedFiles)=>setPostData({...postData,imageContent:acceptedFiles[0]})}
-                   
+                  
+                 
+                  onDrop={
+                    (acceptedFiles)=>
+                    {
+                      setPostData({...postData,imageContent:acceptedFiles[0]})
+                    }
+                  }
+                  
                  >
                    {({getRootProps,getInputProps})=>
                    
                    (
                        <div {...getRootProps()} className='post-image-dropzone'>
                              
-                          <input {...getInputProps()}/>
+                          <input {...getInputProps()} />
                           {!postData.imageContent?(<p>Drag or Click here to insert Picture</p>):(<p>{postData.imageContent.name}</p>)}
                        </div>
                              
@@ -190,14 +248,19 @@ const NewPost = () =>
                   
                   
                   </Dropzone>  
+                  <span>{imageContentCheck?'':errorMessages.imageError}</span> 
                 </div>
+               
                 <div className='post-date'>
                     <input 
                     type="date"
                     name='date'
-                    onChange={e=>setPostData({...postData,date:e.target.value})}
+                    onChange={e=>{
+                      setPostData({...postData,date:e.target.value})
+                      handleInputs("date")}}
+                    
                     />
-                   
+                   <span>{dateCheck?'':errorMessages.dateError}</span>
                 </div>
                 <div className='post-submit-button'>
             <button type='submit'>Submit</button>

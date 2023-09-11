@@ -55,7 +55,7 @@
     text-align: left;
 }
 
-.email-input , .password-input{
+.email-input {
     display: flex;
     flex-direction: column;
 }
@@ -69,6 +69,11 @@
     
   
 
+}
+.password-input{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .password-input input{
     margin:1rem;

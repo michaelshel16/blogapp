@@ -4,11 +4,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height:100vh;
+    height:100%;
     gap:1rem;
     background-color:silver;
     border-radius: 1rem;
     padding: 1rem;
+}
+.edit-post-title span ,.edit-post-sub-title span ,.edit-post-content span
+,.edit-post-date span,.edit-post-image span
+{
+    color:red;
+
 }
 .edit-post-title
 {

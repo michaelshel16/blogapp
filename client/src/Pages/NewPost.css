@@ -4,11 +4,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height:100vh;
+    height:100%;
     gap:1rem;
     background-color:silver;
     border-radius: 1rem;
     
+}
+.post-title span ,.post-sub-title span ,.post-content span
+,.post-date span,.post-image span
+{
+    color:red;
+
 }
 .post-title
 {
@@ -73,6 +79,13 @@
     justify-content: center;
     align-items: center;
     margin:1rem;
+}
+.post-date
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 .post-submit-button button
 {   width:50%;

@@ -48,6 +48,23 @@ const EditPost = () => {
   
   })
   
+  const [titleCheck,settitleCheck]                 = useState(true);
+  const [subtitleCheck,setsubtitleCheck]           = useState(true);
+  const [imageContentCheck,setimageContentCheck]   = useState(true);
+  const [contentCheck,setContentCheck]             = useState(true);
+  const [dateCheck,setdateCheck]                   = useState(true);
+  
+
+ 
+  const errorMessages = {
+   
+    tileError:"Provide a title",
+    subtitleError:"Give a subtitle please",
+    contentError:"Give us a content",
+    imageError:"please upload an image",
+    dateError:"select the date"
+
+  }
   const handleFormSubmit = async(e)=>{
 
     e.preventDefault();
@@ -55,6 +72,33 @@ const EditPost = () => {
     {
       
     console.log(post)
+
+    for(let key in postData)
+    { 
+      switch(key)
+      {
+        case'title':
+         postData.title===''?settitleCheck(false):settitleCheck(true)
+        break
+        case'subtitle':
+         postData.subtitle===''?setsubtitleCheck(false):setsubtitleCheck(true)
+        break
+        case'content':
+          postData.content===''?setContentCheck(false):setContentCheck(true)
+         break
+        case'imageContent':
+          postData.imageContent===''?setimageContentCheck(false):setimageContentCheck(true)
+         break
+        case'date':
+           postData.date===''?setdateCheck(false):setdateCheck(true)
+         break
+      }
+    }
+  if((postData.title&&postData.subtitle&&postData.content
+      &&postData.imageContent&&postData))
+{
+    
+  
     const formData = new FormData();
     for(let value in postData)
     {
@@ -89,6 +133,12 @@ const EditPost = () => {
       userPosts:editedArray
      }))
      navigate("/posts")
+      }
+      else
+      {
+        alert("Please fill all the fields")
+      }
+    
     } 
     catch (error) 
     {
@@ -116,7 +166,7 @@ const EditPost = () => {
                     onChange={e=>setPostData({...postData,title:e.target.value})}
                     
                   />
-                  
+                  <span>{titleCheck?'':errorMessages.tileError}</span>
                 </div>
                <div className='edit-post-sub-title'>
                 <label>Subtitle</label>
@@ -128,7 +178,7 @@ const EditPost = () => {
                  
                   
                   />
-                  
+                  <span>{subtitleCheck?'':errorMessages.subtitleError}</span>
                 </div>
 
                 <div className='edit-post-content-type'>
@@ -158,7 +208,7 @@ const EditPost = () => {
                  
                   </div>
                 
-                   
+                  <span>{contentCheck?'':errorMessages.contentError}</span> 
                 </div>
                 <div className='edit-post-image'>
                  <Dropzone
@@ -182,7 +232,8 @@ const EditPost = () => {
                    )}
                   
                   
-                  </Dropzone>  
+                  </Dropzone> 
+                  <span>{imageContentCheck?'':errorMessages.imageError}</span>  
                 </div>
                 <div className='edit-post-date'>
                     <input 
@@ -190,7 +241,7 @@ const EditPost = () => {
                     name='date'
                     onChange={e=>setPostData({...postData,date:e.target.value})}
                     />
-                   
+                   <span>{dateCheck?'':errorMessages.dateError}</span>
                 </div>
                 <div className='edit-post-submit-button'>
             <button type='submit'>Submit</button>
