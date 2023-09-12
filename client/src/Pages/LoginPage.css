@@ -47,7 +47,7 @@
 
 .email-input label{
     color:#E6CF37;
-    text-align: left;
+    align-self: flex-start;
 }
 
 .password-input label{
@@ -58,6 +58,10 @@
 .email-input {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    
 }
 
 .email-input input{
@@ -65,7 +69,8 @@
     padding: 0.5rem;
     border-radius: 0.2rem;
     border-style: none;
-    
+    outline: none;
+    width:100%;
     
   
 
@@ -73,14 +78,29 @@
 .password-input{
     display: flex;
     justify-content: center;
+    width:100%;
     align-items: center;
+    flex-direction: column;
+    outline: none;
+}
+.password-input label
+{
+   align-self: flex-start;
 }
 .password-input input{
     margin:1rem;
     padding: 0.5rem;
     border-radius: 0.2rem;
     border-style: none;
-  
+   
+}
+
+.password-input-box
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100%;
 }
 
 .submit-button

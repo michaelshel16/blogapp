@@ -10,7 +10,10 @@ import quill from '../components/EditorModule';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserPosts } from '../State';
 import { useNavigate } from 'react-router-dom';
-
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 
 
@@ -239,7 +242,7 @@ const NewPost = () =>
                        <div {...getRootProps()} className='post-image-dropzone'>
                              
                           <input {...getInputProps()} />
-                          {!postData.imageContent?(<p>Drag or Click here to insert Picture</p>):(<p>{postData.imageContent.name}</p>)}
+                          {!postData.imageContent?(<p>Drag or Click here to insert Picture Only HD </p>):(<p>{postData.imageContent.name}</p>)}
                        </div>
                              
 
@@ -252,14 +255,14 @@ const NewPost = () =>
                 </div>
                
                 <div className='post-date'>
-                    <input 
-                    type="date"
-                    name='date'
-                    onChange={e=>{
-                      setPostData({...postData,date:e.target.value})
-                      handleInputs("date")}}
-                    
-                    />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                   <DemoContainer components={['DateTimePicker']}>
+                    <DateTimePicker label="Select date and time"
+                    value={postData.date}
+                    onChange={(newValue)=>setPostData({...postData,date:newValue.toString()})} />
+                  </DemoContainer>
+                </LocalizationProvider>
+                   
                    <span>{dateCheck?'':errorMessages.dateError}</span>
                 </div>
                 <div className='post-submit-button'>

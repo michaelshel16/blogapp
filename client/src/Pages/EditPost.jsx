@@ -10,6 +10,10 @@ import quill from '../components/EditorModule';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserPosts } from '../State';
 import { useNavigate } from 'react-router-dom';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 
 
@@ -72,6 +76,7 @@ const EditPost = () => {
     {
       
     console.log(post)
+    console.log(postData)
 
     for(let key in postData)
     { 
@@ -236,11 +241,14 @@ const EditPost = () => {
                   <span>{imageContentCheck?'':errorMessages.imageError}</span>  
                 </div>
                 <div className='edit-post-date'>
-                    <input 
-                    type="date"
-                    name='date'
-                    onChange={e=>setPostData({...postData,date:e.target.value})}
-                    />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                   <DemoContainer components={['DateTimePicker']}>
+                    <DateTimePicker label="Select date and time"
+                    
+                    onChange={(newValue)=>setPostData({...postData,date:newValue.toString()})} />
+                  </DemoContainer>
+                </LocalizationProvider>
+                   
                    <span>{dateCheck?'':errorMessages.dateError}</span>
                 </div>
                 <div className='edit-post-submit-button'>

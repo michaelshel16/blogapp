@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import  "./index.css";
 import "./App.css"; 
+import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
 import { Navigate, Route,Routes } from 'react-router-dom';
 import HomePage from './Pages/HomePage.jsx';
 import LoginPage from './Pages/LoginPage.jsx';

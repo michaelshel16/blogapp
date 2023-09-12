@@ -34,6 +34,7 @@ const PostPage = () => {
                 </div>
               <div className='post-page-author'>
                   <h3>{post.author}</h3>
+                  Posted on {post.date}
               </div>
               </div>
 

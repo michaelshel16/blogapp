@@ -21,7 +21,7 @@ const LoginPage = () => {
   const [visiblity,setvisibilty] = useState(false);
   const handleVisbility = ()=>
   {
-    setvisibilty(true);
+    visiblity?setvisibilty(false):setvisibilty(true)
   }
   
 
@@ -181,17 +181,28 @@ const LoginPage = () => {
 
              </div>
                <div className='password-input'>
-               <label>
+               
+                <label>
                  password
                </label>
+                
+               <div className='password-input-box'>
                <input
                type={visiblity?"text":"password"} 
                placeholder='Enter your password' 
                onChange={e=> setPassword(e.target.value)}
                name='password'/>
+               <div>
                {visiblity?
                <VisibilityOutlinedIcon color='primary' onClick={()=>handleVisbility()}/>:
                <VisibilityOffOutlinedIcon color='primary' onClick={()=> handleVisbility()}/>}
+               </div>
+             
+               
+               
+               </div>
+               
+               
                
                </div>
                <div className='submit-button'>

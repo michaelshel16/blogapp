@@ -17,7 +17,9 @@
 }
 
 .post-page-author
-{   
+{   display: flex;
+    align-items: center;
+    gap:2rem;
     border-bottom: 1px solid #0A1026;
     width:100%;
     padding-bottom: 1rem;
