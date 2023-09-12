@@ -118,7 +118,7 @@ const EditPost = () => {
     
    
  
-   const updatedPost = await axios.patch("http://localhost:4000/blog/v1/editpost"
+   const updatedPost = await axios.patch("https://blog-full-stack-ndnl.onrender.com/blog/v1/editpost"
     ,formData,
     {headers:{
      "Content-Type":"multipart/form-data",

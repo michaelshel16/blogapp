@@ -22,7 +22,7 @@ const DomainPage = ({posts ,Adimages}) => {
   const navigate = useNavigate();
   const handleEmailSubmit = async(values,onSubmitProps) =>{
   
-    axios.post("http://localhost:4000/blog/v1/newsletter",values)
+    axios.post("https://blog-full-stack-ndnl.onrender.com/blog/v1/newsletter",values)
     .then((res)=>
     {
       console.log(res);
@@ -45,7 +45,7 @@ const DomainPage = ({posts ,Adimages}) => {
       <div className='domain-page-container'>
         <div className='domain-page-big-post'>
           <div className='domain-page-post-image'>
-           <img src={`http://localhost:4000/assets/${post.image}`} 
+           <img src={`https://blog-full-stack-ndnl.onrender.com/assets/${post.image}`} 
            alt='no image available'/>
           </div>
            <div className='domain-page-post-info'>
