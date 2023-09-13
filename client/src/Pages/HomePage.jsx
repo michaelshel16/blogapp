@@ -34,7 +34,7 @@ const HomePage = () => {
 ])
      
      .then((resArr)=>
-     {  
+     {   console.log(resArr)
          dispatch(
           setTechPosts({
           techPosts:resArr[0].data

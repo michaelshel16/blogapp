@@ -50,7 +50,7 @@ export const store = configureStore(
  ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <BrowserRouter>
-  <React.StrictMode>
+    <React.StrictMode>
   
       <PersistGate loading={null} persistor={persistStore(store)}>
       
@@ -62,8 +62,8 @@ export const store = configureStore(
     
     
     
-  </React.StrictMode>
-  </BrowserRouter>
+     </React.StrictMode>
+     </BrowserRouter>
   </Provider>
 )
 

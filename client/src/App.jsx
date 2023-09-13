@@ -22,7 +22,7 @@ import PasswordReset from './Pages/PasswordReset';
 function App() {
   
     const isAuth = Boolean(useSelector((state)=> state.token))
-    const post   = useSelector((state)=> state.post)
+    
   return (
    <div className='app'>
          
