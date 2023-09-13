@@ -128,7 +128,7 @@ const NewPost = () =>
    
       
       formData.append("author",user.firstName+" "+lastName)
-      const newPost = await axios.post("https://blog-full-stack-ndnl.onrender.com/blog/v1/user/posts"
+      const newPost = await axios.post("http://localhost:4000/blog/v1/user/posts"
       ,formData,
       {headers:{
        "Content-Type":"multipart/form-data",

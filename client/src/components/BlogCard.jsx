@@ -13,7 +13,7 @@ const BlogCard = ({post}) => {
     <div className='blog-card-container' onClick={()=>
     navigate("/post",{state:post})}>
         <div className='blog-card-image'>
-        <img src={`https://blog-full-stack-ndnl.onrender.com/assets/${post.image}`} 
+        <img src={`http://localhost:4000/assets/${post.image}`} 
         alt='no image available'/>
 
         </div>

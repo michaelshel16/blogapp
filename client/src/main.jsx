@@ -4,7 +4,7 @@ import App from './App.jsx';
 import { BrowserRouter } from 'react-router-dom';
 import {configureStore} from "@reduxjs/toolkit";
 import { Provider } from 'react-redux';
-import authReducer from "./State/index.jsx";
+import authReducer from './State/index.jsx';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -47,19 +47,23 @@ export const store = configureStore(
 
 
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ ReactDOM.createRoot(document.getElementById("root")).render(
+  <Provider store={store}>
+    <BrowserRouter>
   <React.StrictMode>
-     <Provider store={store}>
+  
       <PersistGate loading={null} persistor={persistStore(store)}>
-      <BrowserRouter>
+      
    
          <App />
  
-       </BrowserRouter>
+       
       </PersistGate>
     
-    </Provider>
+    
     
   </React.StrictMode>
+  </BrowserRouter>
+  </Provider>
 )
 

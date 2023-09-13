@@ -39,7 +39,7 @@ const PostPage = () => {
               </div>
 
               <div className='post-page-main-image'>
-                <img src={`https://blog-full-stack-ndnl.onrender.com/assets/${post.image}`} 
+                <img src={`http://localhost:4000/assets/${post.image}`} 
                 alt='no image available'/>
               </div>
                 <div className='post-page-content'

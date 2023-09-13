@@ -25,12 +25,12 @@ const HomePage = () => {
   
   
  
-  useEffect(()=>
+  useEffect( ()=>
 
   { axios.all([
-  axios.get("https://blog-full-stack-ndnl.onrender.com/blog/v1/posts/tech"),
-  axios.get("https://blog-full-stack-ndnl.onrender.com/blog/v1/posts/business"),
-  axios.get("https://blog-full-stack-ndnl.onrender.com/blog/v1/posts/reviews")
+  axios.get("http://localhost:4000/blog/v1/posts/tech"),
+  axios.get("http://localhost:4000/blog/v1/posts/business"),
+  axios.get("http://localhost:4000/blog/v1/posts/reviews")
 ])
      
      .then((resArr)=>
@@ -46,7 +46,7 @@ const HomePage = () => {
           })
          )
          dispatch(setReviewsPosts({
-          reviewsPosts:resArr[1].data
+          reviewsPosts:resArr[2].data
          }))
 
      })
@@ -117,7 +117,7 @@ const HomePage = () => {
        <div className='home-container'>
             <div className='home-page-post'>
               <div className='home-page-post-image'>
-                 <img src={`https://blog-full-stack-ndnl.onrender.com/assets/${HeaderPost.image}`}
+                 <img src={`http://localhost:4000/assets/${HeaderPost.image}`}
                   alt='image not available'/>
               </div>
               <div className='home-page-post-content'>
