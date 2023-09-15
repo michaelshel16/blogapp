@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import  "./index.css";
 import "./App.css"; 
+import axios from 'axios';
 import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
+import Box from "@mui/material/Box"
 import { Navigate, Route,Routes } from 'react-router-dom';
 import HomePage from './Pages/HomePage.jsx';
 import LoginPage from './Pages/LoginPage.jsx';
@@ -15,13 +16,51 @@ import TechPage from './Pages/TechPage';
 import BusinessPage from './Pages/BusinessPage';
 import ReviewsPage from './Pages/ReviewsPage';
 import PostPage from './components/PostPage';
-import { useSelector } from 'react-redux';
+import { useSelector ,useDispatch} from 'react-redux';
 import EditPost from './Pages/EditPost';
 import PasswordReset from './Pages/PasswordReset';
+import { setTechPosts,setBusinessPosts,setReviewsPosts } from './State';
 
 function App() {
+    const dispatch = useDispatch();
+    const isAuth   = Boolean(useSelector((state)=> state.token))
+    useEffect(()=>
+
+    {
+      const fetchData = async()=>
+      { try 
+      {
+       const resArr = await axios.all([
+          axios.get("http://localhost:4000/blog/v1/posts/tech"),
+          axios.get("http://localhost:4000/blog/v1/posts/business"),
+          axios.get("http://localhost:4000/blog/v1/posts/reviews")
+        ])
+        
+        console.log("resposnse array" + resArr)
+        dispatch(
+          setTechPosts({
+          techPosts:resArr[0].data
+         }))
   
-    const isAuth = Boolean(useSelector((state)=> state.token))
+         dispatch(
+          setBusinessPosts({
+            businessPosts:resArr[1].data
+          })
+         )
+         dispatch(setReviewsPosts({
+          reviewsPosts:resArr[2].data
+         })) 
+                
+      } catch (error) 
+      {
+        console.log(error)
+      }
+        
+      }
+      fetchData()
+    }
+       
+    ,[])
     
   return (
    <div className='app'>

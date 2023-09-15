@@ -15,54 +15,17 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setTechPosts,setBusinessPosts,setReviewsPosts } from '../State';
 import {  useNavigate } from 'react-router-dom';
-import PostPage from '../components/PostPage';
+
 
 const HomePage = () => {
  
   
-  const dispatch     = useDispatch()
+ 
   const navigate     = useNavigate();
   
   
  
-  useEffect(()=>
-
-  {
-    const fetchData = async()=>
-    { try 
-    {
-     const resArr = await axios.all([
-        axios.get("http://localhost:4000/blog/v1/posts/tech"),
-        axios.get("http://localhost:4000/blog/v1/posts/business"),
-        axios.get("http://localhost:4000/blog/v1/posts/reviews")
-      ])
-      
-      console.log("resposnse array" + resArr)
-      dispatch(
-        setTechPosts({
-        techPosts:resArr[0].data
-       }))
-
-       dispatch(
-        setBusinessPosts({
-          businessPosts:resArr[1].data
-        })
-       )
-       dispatch(setReviewsPosts({
-        reviewsPosts:resArr[2].data
-       })) 
-              
-    } catch (error) 
-    {
-      console.log(error)
-    }
-      
-    }
-    fetchData()
-  }
-     
-  ,[])
-
+  
     const techPosts      = useSelector((state)=> 
                                        state.techPosts)
     const reviewsPosts   = useSelector((state)=> 
