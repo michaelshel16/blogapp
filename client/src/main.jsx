@@ -1,6 +1,7 @@
-import React from 'react'
+import React from 'react';
+import App from "./App"
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx';
+
 import { BrowserRouter } from 'react-router-dom';
 import {configureStore} from "@reduxjs/toolkit";
 import { Provider } from 'react-redux';
@@ -24,7 +25,7 @@ import {
 import  storage  from 'redux-persist/lib/storage';
 import { PersistGate } from 'redux-persist/integration/react';
 
-const persistConfig    = {key:root , storage, version:1}
+const persistConfig    = {key:root , storage, version:0}
 
 const persistedReducer = persistReducer(persistConfig,authReducer)
  
@@ -48,22 +49,16 @@ export const store = configureStore(
 
 
  ReactDOM.createRoot(document.getElementById("root")).render(
-  <Provider store={store}>
+  <React.StrictMode>
     <BrowserRouter>
-    <React.StrictMode>
-  
+    <Provider store={store}>
       <PersistGate loading={null} persistor={persistStore(store)}>
-      
-   
-         <App />
- 
-       
+        <App />
       </PersistGate>
+    </Provider>
+    </BrowserRouter>
     
-    
-    
-     </React.StrictMode>
-     </BrowserRouter>
-  </Provider>
+  </React.StrictMode>
+  
 )
 

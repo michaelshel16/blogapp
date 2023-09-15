@@ -14,7 +14,7 @@ import { useEffect,useState} from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setTechPosts,setBusinessPosts,setReviewsPosts } from '../State';
-import { Navigate, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import PostPage from '../components/PostPage';
 
 const HomePage = () => {
@@ -25,33 +25,43 @@ const HomePage = () => {
   
   
  
-  useEffect( ()=>
+  useEffect(()=>
 
-  { axios.all([
-  axios.get("http://localhost:4000/blog/v1/posts/tech"),
-  axios.get("http://localhost:4000/blog/v1/posts/business"),
-  axios.get("http://localhost:4000/blog/v1/posts/reviews")
-])
+  {
+    const fetchData = async()=>
+    { try 
+    {
+     const resArr = await axios.all([
+        axios.get("http://localhost:4000/blog/v1/posts/tech"),
+        axios.get("http://localhost:4000/blog/v1/posts/business"),
+        axios.get("http://localhost:4000/blog/v1/posts/reviews")
+      ])
+      
+      console.log("resposnse array" + resArr)
+      dispatch(
+        setTechPosts({
+        techPosts:resArr[0].data
+       }))
+
+       dispatch(
+        setBusinessPosts({
+          businessPosts:resArr[1].data
+        })
+       )
+       dispatch(setReviewsPosts({
+        reviewsPosts:resArr[2].data
+       })) 
+              
+    } catch (error) 
+    {
+      console.log(error)
+    }
+      
+    }
+    fetchData()
+  }
      
-     .then((resArr)=>
-     {   console.log(resArr)
-         dispatch(
-          setTechPosts({
-          techPosts:resArr[0].data
-         }))
-
-         dispatch(
-          setBusinessPosts({
-            businessPosts:resArr[1].data
-          })
-         )
-         dispatch(setReviewsPosts({
-          reviewsPosts:resArr[2].data
-         }))
-
-     })
-     
-    },[])
+  ,[])
 
     const techPosts      = useSelector((state)=> 
                                        state.techPosts)
@@ -62,13 +72,9 @@ const HomePage = () => {
     const HomePageArray  = techPosts.concat(reviewsPosts,
                                        businessPosts);
     const length         = HomePageArray.length
-    const Array          = arrayPusher()
-    const postArray      = postGenerator();
-    const HeaderPost     = postArray[0];
-    const BgPost         = postArray[1];
 
 
-   function arrayPusher ()
+    const  arrayPusher = ()=>
    {
      
     let array = [];
@@ -91,7 +97,7 @@ const HomePage = () => {
 
    
 
-   function postGenerator  () 
+   const postGenerator = ()=> 
    {
      let array = [];
    
@@ -103,6 +109,14 @@ const HomePage = () => {
      })
      return (array)
    }
+    
+    const Array          = arrayPusher()
+    const postArray      = postGenerator();
+    const HeaderPost     = postArray[0];
+    const BgPost         = postArray[1];
+
+
+   
 
    
   console.log(Array)

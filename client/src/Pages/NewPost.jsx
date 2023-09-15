@@ -206,7 +206,7 @@ const NewPost = () =>
                 <div className='post-content'>
                   <div className='post-content-editor'>
                   <ReactQuill 
-                 theme='snow'
+                 theme="snow"
                  
                  modules={quill.modules} 
                  name = "content"

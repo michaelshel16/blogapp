@@ -16,8 +16,8 @@ const LoginPage = () => {
   const [email,setEmail]         = useState("");
   const [password,setPassword]   = useState("");
   const [isclicked,setisclicked] = useState(false); 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch                 = useDispatch();
+  const navigate                 = useNavigate();
   const [visiblity,setvisibilty] = useState(false);
   const handleVisbility = ()=>
   {
