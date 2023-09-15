@@ -430,7 +430,7 @@ const getReviewPosts = async(req,res)=>
   try 
   {
     
-    const posts  = await Post.find({postType:"review"})
+    const posts  = await Post.find({postType:"reviews"})
 
     if(posts)
     {
