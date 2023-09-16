@@ -74,6 +74,6 @@ export const
 
 const authReducer = authSlice.reducer
 
-export default authReducer;
+export default authReducer
 
 

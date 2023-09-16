@@ -21,8 +21,8 @@ const HomePage = () => {
  
   
  
-  const navigate     = useNavigate();
-  
+ const navigate                         = useNavigate();
+ const [HomePageArray,setHomePageArray] = useState([]); 
   
  
   
@@ -32,16 +32,18 @@ const HomePage = () => {
                                        state.reviewsPosts)
     const businessPosts  = useSelector((state)=> 
                                        state.businessPosts);
-    const HomePageArray  = techPosts.concat(reviewsPosts,
-                                       businessPosts);
+    setHomePageArray(techPosts.concat(reviewsPosts,
+                                       businessPosts));
     const length         = HomePageArray.length
+    
 
-
-    const  arrayPusher = ()=>
+   
+  
+  /*  const  arrayPusher = ()=>
    {
      
     let array = [];
-    let IndexArray = [];
+    let IndexArray = [5];
 
     while(IndexArray.length<5)
     {
@@ -73,10 +75,10 @@ const HomePage = () => {
      return (array)
    }
     
-    const Array          = arrayPusher()
-    const postArray      = postGenerator();
-    const HeaderPost     = postArray[0];
-    const BgPost         = postArray[1];
+    const Array          = techPosts
+    const postArray      = reviewsPosts
+    const HeaderPost     = techPosts[0];
+    const BgPost         = reviewsPosts[1];*/
 
 
    
@@ -144,3 +146,4 @@ const HomePage = () => {
 }
 
 export default HomePage
+
