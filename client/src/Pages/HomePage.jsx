@@ -19,126 +19,170 @@ import {  useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
  
-  
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const [loading,setLoading]             = useState(true);
+  const [CompleteArray,setcompleteArray] = useState([]);
+  const [HomePageArray,setHomePageArray] = useState([]);
  
- const navigate                         = useNavigate();
- const [HomePageArray,setHomePageArray] = useState([]); 
-  
- 
-  
-    const techPosts      = useSelector((state)=> 
-                                       state.techPosts)
-    const reviewsPosts   = useSelector((state)=> 
-                                       state.reviewsPosts)
-    const businessPosts  = useSelector((state)=> 
-                                       state.businessPosts);
-    setHomePageArray(techPosts.concat(reviewsPosts,
-                                       businessPosts));
-    const length         = HomePageArray.length
-    
+  const [HeaderPost,setHeaderPost]       = useState(null);
+  const [BgPost,setBgpost]               = useState(null);
 
-   
   
-  /*  const  arrayPusher = ()=>
-   {
+  useEffect(()=>
+  {
+  
+   const fetchData = async()=>{
+    setLoading(true);
+    try 
+    {
+      const resArr = await axios.all(
+        [axios.get("http://localhost:4000/blog/v1/posts/tech"),
+        axios.get("http://localhost:4000/blog/v1/posts/business"),
+        axios.get("http://localhost:4000/blog/v1/posts/reviews")])
+        
+        console.log(resArr)
+       
+        const array = resArr[0].data.concat(resArr[1].data,resArr[2].data)
+        const length = array.length;     
+        let tempArray = [];
+        let IndexArray = [];
+        console.log(array);
+        
+        setcompleteArray(array);
+        
+        
+        dispatch(setTechPosts({
+          techPosts:resArr[0].data
+        }))
+
+        dispatch(setBusinessPosts({
+          businessPosts:resArr[1].data
+        }))
+
+        dispatch(setReviewsPosts({
+          reviewsPosts:resArr[2].data
+        }))
+
+        
+
+        
+    
      
-    let array = [];
-    let IndexArray = [5];
-
-    while(IndexArray.length<5)
+         while(IndexArray.length<7)
+         {
+           let candidateInt = Math.floor(Math.random()*length-1)+1
+           if(IndexArray.indexOf(candidateInt)===-1)
+           IndexArray.push(candidateInt)
+         }
+     
+        console.log(IndexArray);
+          
+         for(let i=0;i<=5;i++)
+         { if(i<5)
+           {
+           tempArray.push(array[IndexArray[i]])
+           console.log(i)
+           }
+           else
+           { console.log(i)
+            console.log(array[IndexArray[i]])
+            console.log(array[IndexArray[i+1]])
+            
+            setHeaderPost(array[IndexArray[i]])
+           
+             setBgpost(array[IndexArray[i+1]])
+           }
+           
+           
+         }
+         console.log(tempArray);
+         setHomePageArray(tempArray);
+       
+     
+   
+    } 
+    catch (error) 
     {
-      let candidateInt = Math.floor(Math.random()*length-1)+1
-      if(IndexArray.indexOf(candidateInt)===-1)
-      IndexArray.push(candidateInt)
+      console.log(error);
+    }  
+  
+    setLoading(false);
+
+
     }
-     console.log(IndexArray);
-    for(let i=0;i<5;i++)
-    {
-      array.push(HomePageArray[IndexArray[i]]) 
-    }
-    console.log(array);  
-    return(array)
-   }
-
+    fetchData();
+  },[])
+ 
    
-
-   const postGenerator = ()=> 
-   {
-     let array = [];
+ 
+  
    
-
-     HomePageArray.map((item)=>
-     {
-        if(Array.indexOf(item)===-1)
-        array.push(item)  
-     })
-     return (array)
-   }
-    
-    const Array          = techPosts
-    const postArray      = reviewsPosts
-    const HeaderPost     = techPosts[0];
-    const BgPost         = reviewsPosts[1];*/
-
-
+  
    
+ 
 
-   
-  console.log(Array)
     
 
     return (
 
        <div >
+        {loading&&<div>loading</div>}
+          {!loading&&(<div>
+            <Container>
         
-      <Container>
-        
-       <div className='home-container'>
-            <div className='home-page-post'>
-              <div className='home-page-post-image'>
-                 <img src={`http://localhost:4000/assets/${HeaderPost.image}`}
-                  alt='image not available'/>
-              </div>
-              <div className='home-page-post-content'>
-              <div className='home-page-post-content-title'
-              onClick={()=>{navigate("/post",{state:HeaderPost})}}>
-                 <h1 >{HeaderPost.title}</h1>
-              </div>
-              <div className='home-page-post-content-summary'>
-                 {HeaderPost.subtitle}
-              </div>
-              <div className='home-page-post-content-author'>
-                {HeaderPost.author}
-              </div>
-              </div>
-             
-
-            </div>
-
-
-          <div className='home-todays-picks'>
-            <div><h3>TODAY'S PICKS</h3></div>
+        <div className='home-container'>
           
+             <div className='home-page-post'>
+               <div className='home-page-post-image'>
+                  <img src={`http://localhost:4000/assets/${HeaderPost.image}`}
+                   alt='image not available'/>
+               </div>
+               <div className='home-page-post-content'>
+               <div className='home-page-post-content-title'
+               onClick={()=>{navigate("/post",{state:HeaderPost})}}>
+                  <h1 >{HeaderPost.title}</h1>
+               </div>
+               <div className='home-page-post-content-summary'>
+                  {HeaderPost.subtitle}
+               </div>
+               <div className='home-page-post-content-author'>
+                 {HeaderPost.author}
+               </div>
+               </div>
               
-              <div className='home-todays-picks-slider-card'>
-              { Array.map((item,index)=>
-              (
-                <BlogCard post = {item} 
-                 key={index}
-                />
-              ))
-                
-              }
-              
-              
-              </div>
-              
+ 
+             </div>
+ 
+ 
+           <div className='home-todays-picks'>
+             <div><h3>TODAY'S PICKS</h3></div>
+           
+               
+               <div className='home-todays-picks-slider-card'>
+               { HomePageArray.map((item,index)=>
+               (
+                 <BlogCard post = {item} 
+                  key={index}
+                 />
+               ))
+                 
+               }
+               
+               
+               </div>
+               
+             
+           </div>
+           
+        </div>
+       </Container>
+       <BackgroundPost post = {BgPost}/>
             
           </div>
-          
-       </div>
-      </Container>
-      <BackgroundPost post = {BgPost}/>
+            
+          )} 
+   
       </div>
       
     

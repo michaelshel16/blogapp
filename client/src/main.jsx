@@ -51,12 +51,15 @@ export const store = configureStore(
   ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
+
     <Provider store={store}>
       <PersistGate  persistor={persistStore(store)}>
         <App />
       </PersistGate>
     </Provider>
     </BrowserRouter>
+    
+   
     
   </React.StrictMode>
   

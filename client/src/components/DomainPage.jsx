@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./DomainPage.css";
 import { Container } from '@mui/material';
 import DomainPostimg from "../assets/pixel2.jpg";
@@ -18,8 +18,32 @@ const initalnewsLetter = { email:''}
 
 
 const DomainPage = ({posts ,Adimages}) => {
-
   const navigate = useNavigate();
+  const [DomainArray,setDomainArray] = useState([]);
+
+
+  useEffect(()=>
+  {
+    const length = posts.length;
+    let IndexArray = [];
+    let tempArray  = [];
+    
+    while(posts.length<5)
+    {
+      let candidateInt = Math.floor(Math.random()*length-1)+1
+      if(IndexArray.indexOf(candidateInt)===-1)
+      IndexArray.push(candidateInt)
+    }
+    
+    for(let i=0;i<5;i++)
+    { 
+      tempArray.push(posts[IndexArray[i]])
+    }
+    
+    setDomainArray(tempArray);
+  },[])
+
+ 
   const handleEmailSubmit = async(values,onSubmitProps) =>{
   
     axios.post("http://localhost:4000/blog/v1/newsletter",values)
@@ -36,6 +60,8 @@ const DomainPage = ({posts ,Adimages}) => {
   const length     = posts.length;
   const postIndex  = Math.floor(Math.random()*(length-1)) 
   const post       = posts[postIndex]
+  
+
   console.log(post);
   return (
     

@@ -46,8 +46,8 @@ const EditPost = () => {
     subtitle     :post.subtitle,
     postType     :post.postType,
     content      :post.content,
-    imageContent :post.imageContent,
-    date         :post.date
+    imageContent :'',
+    date         :''
     
   
   })
