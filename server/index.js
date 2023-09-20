@@ -75,7 +75,7 @@ db.on('error',(error)=>
     console.log(error);
 })
 
-app.listen(port,()=>{
+app.listen(port||process.env.PORT,()=>{
  console.log(`Server is running on port ${port}`)});
 
 
