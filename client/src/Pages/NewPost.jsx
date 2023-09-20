@@ -82,8 +82,7 @@ const NewPost = () =>
       
     let lastName = ""
  
-    console.log(post)
-    console.log(token)
+   
    
     for(let key in postData)
     { 

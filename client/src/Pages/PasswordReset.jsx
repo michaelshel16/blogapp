@@ -21,8 +21,7 @@ const PasswordReset = () => {
     
 
    const handleOtpSubmit = ()=>
-   { console.log(otp)
-     console.log(Otp)
+   { 
     if(Otp == otp)
     {
       setverified(true)

@@ -20,7 +20,7 @@ const UserPostsPage = () => {
     const token    = useSelector((state)=> state.token)
     const posts    = useSelector((state)=> state.userPosts)
     
-    console.log(token);
+  
 
 
     const handleEdit = async (post)=>
@@ -40,8 +40,7 @@ const UserPostsPage = () => {
       const postId      = post._id
       const deleteimage = post.image
 
-      console.log(post._id)
-      console.log(post.image)
+    
       axios.delete(`http://localhost:4000/blog/v1/${postId}/${deleteimage}/post`,
       {headers:{Authorization:`Bearer ${token}`}}
       

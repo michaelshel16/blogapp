@@ -75,8 +75,7 @@ const EditPost = () => {
     try 
     {
       
-    console.log(post)
-    console.log(postData)
+ 
 
     for(let key in postData)
     { 
@@ -155,7 +154,7 @@ const EditPost = () => {
   
   
  
-  console.log(post)
+
   return (
   <Container>
      

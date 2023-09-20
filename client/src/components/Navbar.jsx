@@ -9,8 +9,8 @@ import { useNavigate } from 'react-router-dom';
 const Navbar = () => {
 const navigate = useNavigate();
 const dispatch = useDispatch(); 
-const user = useSelector((state)=>state.user)
-console.log(user);
+const user     = useSelector((state)=>state.user)
+
   return (
 
     <div className='navbar-container'>

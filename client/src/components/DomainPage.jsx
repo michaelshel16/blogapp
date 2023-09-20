@@ -30,7 +30,7 @@ const DomainPage = ({posts ,Adimages}) => {
     const length = posts.length;
     let IndexArray = [];
     let tempArray  = [];
-    console.log(length);
+   
     const postArray = posts;
     while(IndexArray.length<6)
     {
@@ -39,8 +39,7 @@ const DomainPage = ({posts ,Adimages}) => {
       IndexArray.push(candidateInt)
     }
     
-    console.log(IndexArray);
-
+    
     for(let i=0;i<=5;i++)
     { if(i<5)
       {
@@ -48,7 +47,7 @@ const DomainPage = ({posts ,Adimages}) => {
         
       }
       else
-      { console.log(postArray[IndexArray[i]])
+      { 
         setDomainPost(postArray[IndexArray[i]])
       }
       

@@ -37,7 +37,7 @@ const LoginPage = () => {
     }).then((res)=>
     {  
        const loggedInResponse = res.data;
-       console.log(loggedInResponse);
+    
        dispatch(setLogin({
         user :loggedInResponse.user,
         token:loggedInResponse.token,
@@ -49,7 +49,7 @@ const LoginPage = () => {
        {headers:{"Authorization":`Bearer ${loggedInResponse.token}`}}
      
      ).then((res)=>
-     { console.log(res.data);
+     {
        
        dispatch(setUserPosts({
         userPosts:res.data

@@ -34,7 +34,7 @@ const RegisterPage = () => {
 
     const handleFormSubmit = async(values,onSubmitProps) =>
     {  
-       console.log(values);
+      
       
      
       
@@ -58,7 +58,7 @@ const RegisterPage = () => {
    {
        signInWithGoogle()
        .then((result)=>
-       { console.log(result.user)
+       {
        
         const user = 
         {

@@ -6,7 +6,7 @@ import "./Adbox.css";
 
 const AdBox = ({Adimages}) => {
   
-  console.log(Adimages)
+ 
 
 
   return (

@@ -8,7 +8,7 @@ const BlogCard = ({post}) => {
 
   const navigate = useNavigate();
 
-  console.log(post);
+ 
   return (
     <div className='blog-card-container' onClick={()=>
     navigate("/post",{state:post})}>

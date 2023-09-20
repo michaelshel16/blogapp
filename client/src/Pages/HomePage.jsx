@@ -41,7 +41,7 @@ const HomePage = () => {
         axios.get("http://localhost:4000/blog/v1/posts/business"),
         axios.get("http://localhost:4000/blog/v1/posts/reviews")])
         
-        console.log(resArr)
+        
        
         const array = resArr[0].data.concat(resArr[1].data,resArr[2].data)
         const length = array.length;     
@@ -82,12 +82,10 @@ const HomePage = () => {
          { if(i<5)
            {
            tempArray.push(array[IndexArray[i]])
-           console.log(i)
+           
            }
            else
-           { console.log(i)
-            console.log(array[IndexArray[i]])
-            console.log(array[IndexArray[i+1]])
+           { 
             
             setHeaderPost(array[IndexArray[i]])
            
@@ -96,7 +94,7 @@ const HomePage = () => {
            
            
          }
-         console.log(tempArray);
+        
          setHomePageArray(tempArray);
        
      
