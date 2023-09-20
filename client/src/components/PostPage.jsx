@@ -12,7 +12,7 @@ const PostPage = () => {
   
   const location = useLocation();
   const post     = location.state
-  
+  console.log(post.date);
   return (
     
         <Container>

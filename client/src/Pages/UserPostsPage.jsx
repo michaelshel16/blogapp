@@ -77,6 +77,7 @@ const UserPostsPage = () => {
     
    
     <Container>
+        
         <div className='user-posts-create'>
           <button onClick={()=>navigate("/createpost")}>CreatePost</button>
         </div>
@@ -85,14 +86,15 @@ const UserPostsPage = () => {
         {posts?
          posts.map((item,index)=>
          (
-          <div className='user-posts-container' key={index}>
-          <div className='user-posts-image' onClick={()=> {
+          <div className='user-posts-container' key={index}
+          >
+          <div className='user-posts-image'onClick={()=> {
             navigate("/post",{state:item})}}>
             <img src={`http://localhost:4000/assets/${item.image}`}
             alt='no image available'/>
           </div>
-          <div className='user-posts-title'  onClick={()=> {
-            navigate("/post",{state:item})}}>
+          <div className='user-posts-title' onClick={()=> {
+            navigate("/post",{state:item})}} >
           {item.title}
           </div>
           <div className='user-posts-operations'>
