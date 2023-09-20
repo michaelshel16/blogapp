@@ -37,9 +37,9 @@ const HomePage = () => {
     try 
     {
       const resArr = await axios.all(
-        [axios.get("http://localhost:4000/blog/v1/posts/tech"),
-        axios.get("http://localhost:4000/blog/v1/posts/business"),
-        axios.get("http://localhost:4000/blog/v1/posts/reviews")])
+        [axios.get("https://blogapp-server-2h2a.onrender.com/blog/v1/posts/tech"),
+        axios.get("https://blogapp-server-2h2a.onrender.com/blog/v1/posts/business"),
+        axios.get("https://blogapp-server-2h2a.onrender.com/blog/v1/posts/reviews")])
         
         
        
@@ -133,7 +133,7 @@ const HomePage = () => {
           
              <div className='home-page-post'>
                <div className='home-page-post-image'>
-                  <img src={`http://localhost:4000/assets/${HeaderPost.image}`}
+                  <img src={`https://blogapp-server-2h2a.onrender.com/assets/${HeaderPost.image}`}
                    alt='image not available'/>
                </div>
                <div className='home-page-post-content'>

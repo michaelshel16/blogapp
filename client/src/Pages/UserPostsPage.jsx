@@ -41,7 +41,7 @@ const UserPostsPage = () => {
       const deleteimage = post.image
 
     
-      axios.delete(`http://localhost:4000/blog/v1/${postId}/${deleteimage}/post`,
+      axios.delete(`https://blogapp-server-2h2a.onrender.com/blog/v1/${postId}/${deleteimage}/post`,
       {headers:{Authorization:`Bearer ${token}`}}
       
       
@@ -89,7 +89,7 @@ const UserPostsPage = () => {
           >
           <div className='user-posts-image'onClick={()=> {
             navigate("/post",{state:item})}}>
-            <img src={`http://localhost:4000/assets/${item.image}`}
+            <img src={`https://blogapp-server-2h2a.onrender.com/assets/${item.image}`}
             alt='no image available'/>
           </div>
           <div className='user-posts-title' onClick={()=> {

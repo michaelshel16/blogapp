@@ -34,7 +34,7 @@ const PostTypeCard = ({posts}) => {
       </div>
       <div className='post-type-card-content'>
         <div className='post-type-card-image'>
-          <img src={`http://localhost:4000/assets/${item.image}`} alt='no image'/>  
+          <img src={`https://blogapp-server-2h2a.onrender.com/assets/${item.image}`} alt='no image'/>  
         </div>
           <div className='post-type-card-content-subtitle'>
              {item.subtitle}

@@ -64,7 +64,7 @@ const DomainPage = ({posts ,Adimages}) => {
  
   const handleEmailSubmit = async(values,onSubmitProps) =>{
   
-    axios.post("http://localhost:4000/blog/v1/newsletter",values)
+    axios.post("https://blogapp-server-2h2a.onrender.com/blog/v1/newsletter",values)
     .then((res)=>
     {
       console.log(res);
@@ -90,7 +90,7 @@ const DomainPage = ({posts ,Adimages}) => {
         <div className='domain-page-big-post'>
 
           <div className='domain-page-post-image'>
-           <img src={`http://localhost:4000/assets/${DomainPost.image}`} 
+           <img src={`https://blogapp-server-2h2a.onrender.com/assets/${DomainPost.image}`} 
            alt='no image available'/>
           </div>
            <div className='domain-page-post-info'>

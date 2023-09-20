@@ -39,7 +39,7 @@ const PasswordReset = () => {
      if(confirmpaswword == newpassword)
      {
 
-      axios.patch("http://localhost:4000/blog/v1/passwordreset/user",
+      axios.patch("https://blogapp-server-2h2a.onrender.com/blog/v1/passwordreset/user",
       {
         email:email,
         newPassword:password
