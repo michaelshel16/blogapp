@@ -2,6 +2,7 @@ const bcrypt       = require('bcrypt');
 const jwt          = require('jsonwebtoken');
 const User         = require("../model/User.js");
 const Post         = require("../model/Post.js");
+const NewsLetter   = require('../model/NewsLetter.js');
 const nodemailer   = require('nodemailer');
 const Mailgen      = require('mailgen');
 const fs           = require('fs');
@@ -334,6 +335,23 @@ const createPost = async(req,res)=>{
 
 }
 
+const newsLetterCreate = async(req,res)=>
+{
+  try 
+  {
+    const {email}       = req.body
+    const newSubscriber = new NewsLetter({
+      email:email
+    })
+    await newSubscriber.save() 
+    res.status(201).json({message:"saved sucessfully"})
+  } 
+  catch (error) 
+  {
+    res.status(500).json({error:error.message})
+  }
+}
+
 const deletePost = async(req,res)=>{
      
     try 
@@ -529,5 +547,5 @@ const updatePost = async(req,res)=>{
 module.exports = {findUser,register,login,createPost,getUserPosts
   ,deletePost,updatePost,getTechPosts,
   getBusinessPosts,getReviewPosts,getPost,passwordResetVerify,
-  passwordReset,
+  passwordReset,newsLetterCreate,
   googleAccountRegister,gmailLogin}

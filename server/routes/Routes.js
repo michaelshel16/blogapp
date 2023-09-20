@@ -18,6 +18,8 @@ router.patch("/passwordreset/user",controller.passwordReset);
 
 router.post("/passwordverify/user",controller.passwordResetVerify);
 
+router.post("/newsletter",controller.newsLetterCreate);
+
 
 router.delete("/:postId/:deleteimage/post",verifyToken,controller.deletePost);
 
