@@ -39,7 +39,7 @@ const PostPage = () => {
               </div>
 
               <div className='post-page-main-image'>
-                <img src={`https://blogapp-server-2h2a.onrender.com/assets/${post.image}`} 
+                <img src={`https://blogapp-server-gamma.vercel.app/assets/${post.image}`} 
                 alt='no image available'/>
               </div>
                 <div className='post-page-content'

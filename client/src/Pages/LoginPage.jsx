@@ -31,7 +31,7 @@ const LoginPage = () => {
       email:email,
       password:password
     }
-    axios.post("https://blogapp-server-2h2a.onrender.com/blog/v1/login",UserCredentials,
+    axios.post("https://blogapp-server-gamma.vercel.app/blog/v1/login",UserCredentials,
     {
       headers:{"Content-type":"application/json"}
     }).then((res)=>
@@ -45,7 +45,7 @@ const LoginPage = () => {
       }))
 
        if(loggedInResponse)
-       { axios.get(`https://blogapp-server-2h2a.onrender.com/blog/v1/${loggedInResponse.user._id}/posts`,
+       { axios.get(`https://blogapp-server-gamma.vercel.app/blog/v1/${loggedInResponse.user._id}/posts`,
        {headers:{"Authorization":`Bearer ${loggedInResponse.token}`}}
      
      ).then((res)=>
@@ -84,7 +84,7 @@ const LoginPage = () => {
         email:email,
         
       } 
-    const Userdata = await axios.post("https://blogapp-server-2h2a.onrender.com/blog/v1/gmaillogin",
+    const Userdata = await axios.post("https://blogapp-server-gamma.vercel.app/blog/v1/gmaillogin",
       UserCrendentials)
     
       if(Userdata)
@@ -96,7 +96,7 @@ const LoginPage = () => {
        const user  = Userdata.data.user;
        const token = Userdata.data.token;
         const UserPosts = await
-         axios.get(`https://blogapp-server-2h2a.onrender.com/blog/v1/${user._id}/posts`,
+         axios.get(`https://blogapp-server-gamma.vercel.app/blog/v1/${user._id}/posts`,
         {headers:{Authorization:`Bearer ${token}`}})
         
         console.log(UserPosts)
@@ -127,13 +127,13 @@ const LoginPage = () => {
     
     try 
     {
-      const user = await axios.post("https://blogapp-server-2h2a.onrender.com/blog/v1/finduser",
+      const user = await axios.post("https://blogapp-server-gamma.vercel.app/blog/v1/finduser",
       {email:email})
   
       if(user)
       {
         const Otp = Math.floor(1000+Math.random()*9000);
-        axios.post("https://blogapp-server-2h2a.onrender.com/blog/v1/passwordverify/user",
+        axios.post("https://blogapp-server-gamma.vercel.app/blog/v1/passwordverify/user",
         {
           email:email,
           Otp:Otp

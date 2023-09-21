@@ -127,7 +127,7 @@ const NewPost = () =>
    
       
       formData.append("author",user.firstName+" "+lastName)
-      const newPost = await axios.post("https://blogapp-server-2h2a.onrender.com/blog/v1/user/posts"
+      const newPost = await axios.post("https://blogapp-server-gamma.vercel.app/blog/v1/user/posts"
       ,formData,
       {headers:{
        "Content-Type":"multipart/form-data",
