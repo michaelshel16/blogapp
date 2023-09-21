@@ -17,11 +17,10 @@ require('dotenv').config();
 
 const port              = process.env.PORT;
 const dataBaseUrl       = process.env.USERS_DATABASE_URL;
-app.use(cors({
-    origin:"https://glittery-eclair-f3b6cd.netlify.app/"
-}
-))
-app.options('*',cors());
+app.use(cors());
+
+        
+
 app.use(express.json());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
