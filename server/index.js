@@ -17,9 +17,7 @@ require('dotenv').config();
 
 const port              = process.env.PORT;
 const dataBaseUrl       = process.env.USERS_DATABASE_URL;
-app.use(cors({
-        origin:["http://localhost:4000"]
-}));
+app.use(cors());
 
         
 
