@@ -19,7 +19,7 @@ const port              = process.env.PORT;
 const dataBaseUrl       = process.env.USERS_DATABASE_URL;
 app.use(cors({
         credentials:true,
-        origin:"https://comforting-tarsier-da04c6.netlify.app"
+        origin:"https://venerable-klepon-c1321d.netlify.app"
 }));
 
         
