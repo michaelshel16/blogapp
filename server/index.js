@@ -18,7 +18,8 @@ require('dotenv').config();
 const port              = process.env.PORT;
 const dataBaseUrl       = process.env.USERS_DATABASE_URL;
 app.use(cors({
-        origin:*
+        credentials:true,
+        origin:["https://blogapp-seven-delta.vercel.app"]
 }));
 
         
