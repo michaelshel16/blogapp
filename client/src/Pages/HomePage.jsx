@@ -1,10 +1,10 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from '../Components/Navbar';
 import { Container } from '@mui/material';
-import BlogCard from '../components/BlogCard.jsx';
+import BlogCard from '../Components/BlogCard.jsx';
 import HomePageImg from "../assets/pixel2.jpg"
 import "./HomePage.css";
-import BackgroundPost from "../components/BackgroundPost.jsx";
+import BackgroundPost from "../Components/BackgroundPost.jsx";
 
 //import PostTypeCard from '../components/PostTypeCard';
 

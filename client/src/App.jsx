@@ -7,15 +7,15 @@ import Box from "@mui/material/Box"
 import { BrowserRouter, Navigate, Route,Routes } from 'react-router-dom';
 import HomePage from "./Pages/HomePage.jsx";
 import LoginPage from './Pages/LoginPage.jsx';
-import Navbar from './components/Navbar.jsx';
+import Navbar from './Components/Navbar.jsx';
 import RegisterPage from "./Pages/RegisterPage.jsx";
 import NewPost from './Pages/NewPost';
-import Footer from './components/Footer';
+import Footer from './Components/Footer';
 import UserPostsPage from './Pages/UserPostsPage';
 import TechPage from './Pages/TechPage';
 import BusinessPage from './Pages/BusinessPage';
 import ReviewsPage from './Pages/ReviewsPage';
-import PostPage from './components/PostPage';
+import PostPage from './Components/PostPage';
 import { useSelector ,useDispatch} from 'react-redux';
 import EditPost from './Pages/EditPost';
 import PasswordReset from './Pages/PasswordReset';
@@ -25,7 +25,7 @@ function App() {
   
    const dispatch = useDispatch();
   
-  
+   
 
     
     
