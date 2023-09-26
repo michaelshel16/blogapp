@@ -1,5 +1,5 @@
 import React from 'react';
-import DomainPage from '../Components/DomainPage';
+import DomainPage from '../components/DomainPage';
 import { useSelector } from 'react-redux';
 import businessadimage1 from "../assets/businessad1.jpg";
 import businessadimage2 from "../assets/businessad2.jpg";

@@ -1,5 +1,5 @@
 import React from 'react';
-import DomainPage from '../Components/DomainPage';
+import DomainPage from '../components/DomainPage';
 import { useSelector } from 'react-redux';
 import reviewadimage1 from "../assets/reviewad1.jpg"
 import reviewadimage2 from "../assets/reviewad2.jpg";

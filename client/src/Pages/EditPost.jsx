@@ -6,7 +6,7 @@ import axios from 'axios';
 import {store} from "../main.jsx";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import quill from '../Components/EditorModule';
+import quill from '../components/EditorModule';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserPosts } from '../State';
 import { useNavigate } from 'react-router-dom';

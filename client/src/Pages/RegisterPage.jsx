@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import {FcGoogle} from "react-icons/fc";
-import { signInWithGoogle } from '../Components/FireBase.jsx';
+import { signInWithGoogle } from '../components/FireBase.jsx';
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required") ,

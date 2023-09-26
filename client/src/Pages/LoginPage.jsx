@@ -5,7 +5,7 @@ import {FcGoogle} from "react-icons/fc";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {setLogin,setUserPosts} from "../State/index.jsx";
-import { signInWithGoogle}  from "../Components/FireBase.jsx";
+import { signInWithGoogle}  from "../components/FireBase.jsx";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 
