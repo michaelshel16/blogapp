@@ -17,7 +17,10 @@ require('dotenv').config();
 
 const port              = process.env.PORT;
 const dataBaseUrl       = process.env.USERS_DATABASE_URL;
-app.use(cors());
+app.use(cors({
+        
+        origin:"https://main--neon-taffy-87a9f5.netlify.app"
+}));
 
         
 
