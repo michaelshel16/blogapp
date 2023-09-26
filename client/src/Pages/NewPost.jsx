@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container } from '@mui/material';
 import Dropzone from 'react-dropzone';
-import "./Newpost.css";
+import "./NewPost.css";
 import axios from 'axios';
 import {store} from "../main.jsx";
 import ReactQuill from "react-quill";
