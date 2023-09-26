@@ -17,7 +17,9 @@ require('dotenv').config();
 
 const port              = process.env.PORT;
 const dataBaseUrl       = process.env.USERS_DATABASE_URL;
-app.use(cors());
+app.use(cors({
+        origin:"https://6512ef1e9649bb12326419fc--thriving-cranachan-4a295d.netlify.app/"
+}));
 
         
 
