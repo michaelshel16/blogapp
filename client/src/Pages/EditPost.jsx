@@ -117,7 +117,7 @@ const EditPost = () => {
     
    
  
-   const updatedPost = await axios.patch("https://blogapp-server-gamma.vercel.app/blog/v1/editpost"
+   const updatedPost = await axios.patch("https://blogapp-server-beryl.vercel.app/blog/v1/editpost"
     ,formData,
     {headers:{
      "Content-Type":"multipart/form-data",

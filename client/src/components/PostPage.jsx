@@ -39,7 +39,7 @@ const PostPage = () => {
               </div>
 
               <div className='post-page-main-image'>
-                <img src={`https://blogapp-server-gamma.vercel.app/assets/${post.image}`} 
+                <img src={`https://blogapp-server-beryl.vercel.app/assets/${post.image}`} 
                 alt='no image available'/>
               </div>
                 <div className='post-page-content'

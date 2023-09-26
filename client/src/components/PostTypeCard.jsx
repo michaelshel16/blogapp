@@ -34,7 +34,7 @@ const PostTypeCard = ({posts}) => {
       </div>
       <div className='post-type-card-content'>
         <div className='post-type-card-image'>
-          <img src={`https://blogapp-server-gamma.vercel.app/assets/${item.image}`} alt='no image'/>  
+          <img src={`https://blogapp-server-beryl.vercel.app/assets/${item.image}`} alt='no image'/>  
         </div>
           <div className='post-type-card-content-subtitle'>
              {item.subtitle}

@@ -21,7 +21,7 @@ const BackgroundPost = ({post}) => {
         <h1>Read more <ArrowForwardIcon/></h1>
       </div>
       <div className='bg-post-image'>
-          <img src ={`https://blogapp-server-gamma.vercel.app/assets/${post.image}`}
+          <img src ={`https://blogapp-server-beryl.vercel.app/assets/${post.image}`}
            alt='no image available'/>
         </div>
       <div className='bg-post-content'>

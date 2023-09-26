@@ -13,7 +13,7 @@ const BlogCard = ({post}) => {
     <div className='blog-card-container' onClick={()=>
     navigate("/post",{state:post})}>
         <div className='blog-card-image'>
-        <img src={`https://blogapp-server-gamma.vercel.app/assets/${post.image}`} 
+        <img src={`https://blogapp-server-beryl.vercel.app/assets/${post.image}`} 
         alt='no image available'/>
 
         </div>

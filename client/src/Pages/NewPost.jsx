@@ -127,7 +127,7 @@ const NewPost = () =>
    
       
       formData.append("author",user.firstName+" "+lastName)
-      const newPost = await axios.post("https://blogapp-server-gamma.vercel.app/blog/v1/user/posts"
+      const newPost = await axios.post("https://blogapp-server-beryl.vercel.app/blog/v1/user/posts"
       ,formData,
       {headers:{
        "Content-Type":"multipart/form-data",
@@ -249,6 +249,7 @@ const NewPost = () =>
                    )}
                   
                   
+                  
                   </Dropzone>  
                   <span>{imageContentCheck?'':errorMessages.imageError}</span> 
                 </div>
@@ -258,7 +259,7 @@ const NewPost = () =>
                    <DemoContainer components={['DateTimePicker']}>
                     <DateTimePicker label="Select date and time"
                     value={postData.date}
-                    onChange={(newValue)=>setPostData({...postData,date:newValue.toString()})} />
+                    onChange={(newValue)=>setPostData({...postData,date:newValue})} />
                   </DemoContainer>
                 </LocalizationProvider>
                    

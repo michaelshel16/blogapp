@@ -38,7 +38,7 @@ const RegisterPage = () => {
       
      
       
-      axios.post("https://blogapp-server-gamma.vercel.app/blog/v1/register",values )
+      axios.post("https://blogapp-server-beryl.vercel.app/blog/v1/register",values )
       .then((res)=>
       {
         console.log(res);
@@ -68,7 +68,7 @@ const RegisterPage = () => {
         
         if(user)
         {
-        axios.post("https://blogapp-server-gamma.vercel.app/blog/v1/googleRegister", user)
+        axios.post("https://blogapp-server-beryl.vercel.app/blog/v1/googleRegister", user)
         .then((res)=>
         {
         if(res.status == 401)
