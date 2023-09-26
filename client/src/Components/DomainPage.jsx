@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import "./DomainPage.css";
 import { Container } from '@mui/material';
 import DomainPostimg from "../assets/pixel2.jpg";
-import BlogCard from './BlogCard';
+import BlogCard from "./BlogCard.jsx";
 import AdBox from './AdBox';
 import { Formik } from 'formik';
 import * as yup from "yup";
