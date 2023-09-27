@@ -89,7 +89,7 @@ const UserPostsPage = () => {
           >
           <div className='user-posts-image'onClick={()=> {
             navigate("/post",{state:item})}}>
-            <img src={`https://blogapp-server-04qo.onrender.com/public/assets/${item.image}`}
+            <img src={`https://blogapp-server-04qo.onrender.com/assets/${item.image}`}
             alt='no image available'/>
           </div>
           <div className='user-posts-title' onClick={()=> {

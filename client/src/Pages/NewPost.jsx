@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container } from '@mui/material';
 import Dropzone from 'react-dropzone';
-import "./NewPost.css";
+import "./Newpost.css";
 import axios from 'axios';
 import {store} from "../main.jsx";
 import ReactQuill from "react-quill";
@@ -249,7 +249,6 @@ const NewPost = () =>
                    )}
                   
                   
-                  
                   </Dropzone>  
                   <span>{imageContentCheck?'':errorMessages.imageError}</span> 
                 </div>
@@ -259,7 +258,7 @@ const NewPost = () =>
                    <DemoContainer components={['DateTimePicker']}>
                     <DateTimePicker label="Select date and time"
                     value={postData.date}
-                    onChange={(newValue)=>setPostData({...postData,date:newValue})} />
+                    onChange={(newValue)=>setPostData({...postData,date:newValue.toString()})} />
                   </DemoContainer>
                 </LocalizationProvider>
                    

@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import { Container } from '@mui/material';
-import BlogCard from "../components/BlogCard.jsx"
+import BlogCard from '../components/BlogCard.jsx';
 import HomePageImg from "../assets/pixel2.jpg"
 import "./HomePage.css";
 import BackgroundPost from "../components/BackgroundPost.jsx";
@@ -27,8 +27,7 @@ const HomePage = () => {
  
   const [HeaderPost,setHeaderPost]       = useState(null);
   const [BgPost,setBgpost]               = useState(null);
-  
-  axios.defaults.withCredentials
+
   
   useEffect(()=>
   {
