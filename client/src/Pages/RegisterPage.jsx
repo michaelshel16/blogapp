@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import {FcGoogle} from "react-icons/fc";
-import { signInWithGoogle } from "../components/Firebase.jsx";
+import { signInWithGoogle } from '../components/FireBase.jsx';
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required") ,
@@ -38,7 +38,7 @@ const RegisterPage = () => {
       
      
       
-      axios.post("https://blogapp-server-04qo.onrender.com/blog/v1/register",values )
+      axios.post("http://localhost:4000/blog/v1/register",values )
       .then((res)=>
       {
         console.log(res);
@@ -68,7 +68,7 @@ const RegisterPage = () => {
         
         if(user)
         {
-        axios.post("https://blogapp-server-04qo.onrender.com/blog/v1/googleRegister", user)
+        axios.post("http://localhost:4000/blog/v1/googleRegister", user)
         .then((res)=>
         {
         if(res.status == 401)

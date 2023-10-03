@@ -5,6 +5,7 @@ import "./PostPage.css";
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useState ,useEffect} from 'react';
+import { Dayjs } from 'dayjs';
 import axios from 'axios';
 
 
@@ -34,12 +35,12 @@ const PostPage = () => {
                 </div>
               <div className='post-page-author'>
                   <h3>{post.author}</h3>
-                  Posted on {post.date}
+                  Posted on {post.createdAt}
               </div>
               </div>
 
               <div className='post-page-main-image'>
-                <img src={`https://blogapp-server-04qo.onrender.com/assets/${post.image}`} 
+                <img src={post.image.imageUrl} 
                 alt='no image available'/>
               </div>
                 <div className='post-page-content'

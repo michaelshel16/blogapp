@@ -21,7 +21,7 @@ const BackgroundPost = ({post}) => {
         <h1>Read more <ArrowForwardIcon/></h1>
       </div>
       <div className='bg-post-image'>
-          <img src ={`https://blogapp-server-04qo.onrender.com/assets/${post.image}`}
+          <img src ={post.image.imageUrl}
            alt='no image available'/>
         </div>
       <div className='bg-post-content'>

@@ -33,6 +33,7 @@ reducers:{
     {
        state.reviewsPosts = action.payload.reviewsPosts
     },
+    
      setLogin:(state,action)=>
     {
       

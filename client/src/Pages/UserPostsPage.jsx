@@ -13,7 +13,7 @@ import { setPost,setUserPosts,setEditPost} from '../State';
 
 
 const UserPostsPage = () => {
-
+    debugger
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user     = useSelector((state)=> state.user)
@@ -37,11 +37,11 @@ const UserPostsPage = () => {
     
      const handleDelete = async (post)=>
      { 
-      const postId      = post._id
-      const deleteimage = post.image
-
-    
-      axios.delete(`https://blogapp-server-04qo.onrender.com/blog/v1/${postId}/${deleteimage}/post`,
+      const deletepostId = post._id
+      const deleteimage  = post.image.publicId
+      console.log(deleteimage);
+      
+      axios.delete(`http://localhost:4000/blog/v1/${deletepostId}/${deleteimage}/post`,
       {headers:{Authorization:`Bearer ${token}`}}
       
       
@@ -55,7 +55,7 @@ const UserPostsPage = () => {
     let array = [];
     array     = posts.filter((post)=>
     {
-        return post._id !== postId
+        return post._id !== deletepostId
     })
     dispatch(setUserPosts({
         
@@ -89,7 +89,7 @@ const UserPostsPage = () => {
           >
           <div className='user-posts-image'onClick={()=> {
             navigate("/post",{state:item})}}>
-            <img src={`https://blogapp-server-04qo.onrender.com/assets/${item.image}`}
+            <img src={item.image.imageUrl}
             alt='no image available'/>
           </div>
           <div className='user-posts-title' onClick={()=> {

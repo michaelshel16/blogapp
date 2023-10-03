@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container } from '@mui/material';
 import Dropzone from 'react-dropzone';
-import "./Editpost.css";
+import "./EditPost.css";
 import axios from 'axios';
 import {store} from "../main.jsx";
 import ReactQuill from "react-quill";
@@ -10,6 +10,7 @@ import quill from '../components/EditorModule';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserPosts } from '../State';
 import { useNavigate } from 'react-router-dom';
+import Resizer from "react-image-file-resizer";
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -47,7 +48,8 @@ const EditPost = () => {
     postType     :post.postType,
     content      :post.content,
     imageContent :'',
-    date         :''
+    image        :post.image
+    
     
   
   })
@@ -56,7 +58,7 @@ const EditPost = () => {
   const [subtitleCheck,setsubtitleCheck]           = useState(true);
   const [imageContentCheck,setimageContentCheck]   = useState(true);
   const [contentCheck,setContentCheck]             = useState(true);
-  const [dateCheck,setdateCheck]                   = useState(true);
+  
   
 
  
@@ -66,16 +68,33 @@ const EditPost = () => {
     subtitleError:"Give a subtitle please",
     contentError:"Give us a content",
     imageError:"please upload an image",
-    dateError:"select the date"
+   
 
   }
+
+  const resizeFile = (file) =>
+  new Promise((resolve) => {
+    Resizer.imageFileResizer(
+      file,
+      1280,
+      720,
+      "JPEG",
+      100,
+      0,
+      (uri) => {
+        resolve(uri);
+      },
+      "file"
+    );
+  });
   const handleFormSubmit = async(e)=>{
 
     e.preventDefault();
     try 
     {
       
- 
+     console.log(token)
+     console.log(post);
 
     for(let key in postData)
     { 
@@ -93,9 +112,7 @@ const EditPost = () => {
         case'imageContent':
           postData.imageContent===''?setimageContentCheck(false):setimageContentCheck(true)
          break
-        case'date':
-           postData.date===''?setdateCheck(false):setdateCheck(true)
-         break
+       
       }
     }
   if((postData.title&&postData.subtitle&&postData.content
@@ -104,12 +121,50 @@ const EditPost = () => {
     
   
     const formData = new FormData();
+    
+    console.log(postData.content)
+    const modifiedText  = postData.content.replace(/<[^>]+>/g, '');
+    const modifiedImage = await resizeFile(postData.imageContent)
+
+    console.log(postData.image);
+    
     for(let value in postData)
-    {
-     formData.append(value,postData[value])
+    { 
+      switch(value)
+      {
+         case'imageContent':formData.append(value,modifiedImage)
+         break
+
+         case'content':formData.append(value,modifiedText)
+         break
+
+         case'title':formData.append(value,postData[value])
+         break
+
+         case'subtitle':formData.append(value,postData[value])
+         break
+         
+         case'image':
+         {
+          for(let imageKey in postData[value])
+          {
+            formData.append(`image[${imageKey}]`,postData[value][imageKey])
+          
+          } 
+          
+          }
+         break
+
+         case'postType':formData.append(value,postData[value])
+         break
+
+       
+      }
+      
     }
-    formData.append("deleteimage",post.image)
-    formData.append("image",postData.imageContent.name)
+    
+    
+
     formData.append("userId",user._id)
     formData.append("postId",post._id)
     formData.append("email",user.email)
@@ -117,7 +172,7 @@ const EditPost = () => {
     
    
  
-   const updatedPost = await axios.patch("https://blogapp-server-04qo.onrender.com/blog/v1/editpost"
+   const updatedPost = await axios.patch("http://localhost:4000/blog/v1/editpost"
     ,formData,
     {headers:{
      "Content-Type":"multipart/form-data",
@@ -239,17 +294,7 @@ const EditPost = () => {
                   </Dropzone> 
                   <span>{imageContentCheck?'':errorMessages.imageError}</span>  
                 </div>
-                <div className='edit-post-date'>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                   <DemoContainer components={['DateTimePicker']}>
-                    <DateTimePicker label="Select date and time"
-                    
-                    onChange={(newValue)=>setPostData({...postData,date:newValue.toString()})} />
-                  </DemoContainer>
-                </LocalizationProvider>
-                   
-                   <span>{dateCheck?'':errorMessages.dateError}</span>
-                </div>
+              
                 <div className='edit-post-submit-button'>
             <button type='submit'>Submit</button>
            </div>

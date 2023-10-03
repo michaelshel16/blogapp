@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import { Container } from '@mui/material';
-import BlogCard from '../components/BlogCard.jsx';
+import BlogCard from "../components/BlogCard.jsx"
 import HomePageImg from "../assets/pixel2.jpg"
 import "./HomePage.css";
 import BackgroundPost from "../components/BackgroundPost.jsx";
@@ -21,13 +21,14 @@ const HomePage = () => {
  
   const dispatch = useDispatch()
   const navigate = useNavigate();
-  const [loading,setLoading]             = useState(true);
-  const [CompleteArray,setcompleteArray] = useState([]);
-  const [HomePageArray,setHomePageArray] = useState([]);
- 
-  const [HeaderPost,setHeaderPost]       = useState(null);
-  const [BgPost,setBgpost]               = useState(null);
-
+  const [loading,setLoading]               = useState(true);
+  const [CompleteArray,setcompleteArray]   = useState([]);
+  const [HomePageArray,setHomePageArray]   = useState([]);
+  
+  const [HeaderPost,setHeaderPost]         = useState(null);
+  const [BgPost,setBgpost]                 = useState(null);
+  
+  axios.defaults.withCredentials
   
   useEffect(()=>
   {
@@ -37,14 +38,23 @@ const HomePage = () => {
     try 
     {
       const resArr = await axios.all(
-        [axios.get("https://blogapp-server-04qo.onrender.com/blog/v1/posts/tech"),
-        axios.get("https://blogapp-server-04qo.onrender.com/blog/v1/posts/business"),
-        axios.get("https://blogapp-server-04qo.onrender.com/blog/v1/posts/reviews")])
+        [axios.get("http://localhost:4000/blog/v1/posts/tech"),
+        axios.get("http://localhost:4000/blog/v1/posts/business"),
+        axios.get("http://localhost:4000/blog/v1/posts/reviews")],)
+
+        
         
         
        
         const array = resArr[0].data.concat(resArr[1].data,resArr[2].data)
-        const length = array.length;     
+
+        
+        const length = array.length;  
+        
+       
+          
+
+        
         let tempArray = [];
         let IndexArray = [];
         console.log(array);
@@ -113,7 +123,6 @@ const HomePage = () => {
   },[])
  
    
- 
   
    
   
@@ -133,7 +142,7 @@ const HomePage = () => {
           
              <div className='home-page-post'>
                <div className='home-page-post-image'>
-                  <img src={`https://blogapp-server-04qo.onrender.com/assets/${HeaderPost.image}`}
+                  <img src={HeaderPost.image.imageUrl}
                    alt='image not available'/>
                </div>
                <div className='home-page-post-content'>

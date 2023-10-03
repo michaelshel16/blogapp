@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import "./DomainPage.css";
 import { Container } from '@mui/material';
 import DomainPostimg from "../assets/pixel2.jpg";
-import BlogCard from './BlogCard';
+import BlogCard from "./BlogCard.jsx";
 import AdBox from './AdBox';
 import { Formik } from 'formik';
 import * as yup from "yup";
@@ -64,7 +64,7 @@ const DomainPage = ({posts ,Adimages}) => {
  
   const handleEmailSubmit = async(values,onSubmitProps) =>{
   
-    axios.post("https://blogapp-server-04qo.onrender.com/blog/v1/newsletter",values)
+    axios.post("http://localhost:4000/blog/v1/newsletter",values)
     .then((res)=>
     {
       console.log(res);
@@ -90,7 +90,7 @@ const DomainPage = ({posts ,Adimages}) => {
         <div className='domain-page-big-post'>
 
           <div className='domain-page-post-image'>
-           <img src={`https://blogapp-server-04qo.onrender.com/assets/${DomainPost.image}`} 
+           <img src={DomainPost.image.imageUrl} 
            alt='no image available'/>
           </div>
            <div className='domain-page-post-info'>
