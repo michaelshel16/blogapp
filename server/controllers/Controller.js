@@ -6,7 +6,7 @@ const NewsLetter   = require('../model/NewsLetter.js');
 const nodemailer   = require('nodemailer');
 const Mailgen      = require('mailgen');
 const fs           = require('fs');
-
+const cloudinary   = require("../Utilities/Cloudinary.js");
 
 
 
@@ -295,8 +295,7 @@ const createPost = async(req,res)=>{
    
   try 
   {
-    
-
+   
     const 
     { userId,
       author,
@@ -306,8 +305,29 @@ const createPost = async(req,res)=>{
       content ,
       postType,
       image ,  
-      date   
+        
     } = req.body
+   
+   
+  console.log(req.file);
+
+  const b64 = Buffer.from(req.file.buffer).toString("base64");
+  let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+
+  console.log(dataURI);
+
+  const result = await cloudinary.uploader.upload(dataURI,{
+    resource_type: "auto",
+    folder:"blogapp-assets"
+  },function(response)
+  {
+    return response
+  })
+   
+
+ 
+   
+  
 
    const newPost = new Post({
       userId  : userId,
@@ -317,8 +337,11 @@ const createPost = async(req,res)=>{
       subtitle: subtitle,
       content : content,
       postType: postType,
-      image   : image,
-      date    : date
+      image   : {
+       publicId:result.public_id,
+       imageUrl:result.secure_url
+      },
+      
     })
 
     await newPost.save()
@@ -328,7 +351,7 @@ const createPost = async(req,res)=>{
   }
   catch (error) 
   {
-     res.status(500).json({error:error.message})
+     res.status(500).json({error:error})
   }
 
 
@@ -356,16 +379,18 @@ const deletePost = async(req,res)=>{
      
     try 
     {
-       const postId        = req.params.postId
+       const deletepostId  = req.params.deletepostId
        const deleteimage   = req.params.deleteimage
-      
        
-       const removePath    = `./public/assets/${deleteimage}`
+
        
-       await Post.findByIdAndDelete(postId)
+    
        
-       
-       fs.unlinkSync(removePath)
+       await Post.findByIdAndDelete(deletepostId)
+       console.log(deleteimage)
+       await cloudinary.uploader.destroy(deleteimage)
+
+      // fs.unlinkSync(removePath)
        res.status(200).json({message:"Post deleted successfully"})
     } 
     catch (error) 
@@ -496,22 +521,33 @@ const updatePost = async(req,res)=>{
         content,
         postType,
         image,
-        deleteimage,
-        date
+        
+        
        
        
       }  = req.body
       
-      const fileName   = deleteimage
-      const removePath = `./public/assets/${fileName}` 
-
-
-      if(fileName!==image)
-      {
-        fs.unlinkSync(removePath)
-      }
-      
      
+      
+      
+      console.log(image.publicId);
+      
+      await cloudinary.uploader.destroy(image.publicId)
+
+      
+      const b64 = Buffer.from(req.file.buffer).toString("base64");
+      let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+    
+      console.log(dataURI);
+    
+      const result = await cloudinary.uploader.upload(dataURI,{
+        resource_type: "auto",
+        folder:"blogapp-assets"
+      },function(response)
+      {
+        return response
+      })
+
       
       const updatedPost = await Post.findOneAndUpdate({_id:postId},
         {
@@ -522,9 +558,14 @@ const updatePost = async(req,res)=>{
         subtitle:subtitle,
         content:content,
         postType:postType,
-        image:image,
-        date:date
+        image:{
+          publicId:result.public_id,
+          imageUrl:result.secure_url
+        },
+        
         },{new:true})
+
+     
 
       if(updatedPost){
 
@@ -539,7 +580,7 @@ const updatePost = async(req,res)=>{
   } 
   catch (error) 
   {
-     res.status(500).json({error:error.message});
+     res.status(500).json({error:error});
   }
 }
 

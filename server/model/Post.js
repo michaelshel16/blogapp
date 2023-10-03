@@ -39,17 +39,25 @@ const postSchema = new mongoose.Schema({
     },
     image:
     {
-        type:String,
-        required:true
+      type:{
+        publicId:{
+        
+            type:String,
+            required:true
+        },
+        imageUrl:
+        {
+            type:String,
+            required:true
+        }
+      }
+      
     },
-    date:
-    {
-        type:String,
-        required:true
-    }
+    
     
 
 
-});
+},
+{timestamps:true});
 
 module.exports = mongoose.model("Post",postSchema);
