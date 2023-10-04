@@ -13,7 +13,7 @@ import { setPost,setUserPosts,setEditPost} from '../State';
 
 
 const UserPostsPage = () => {
-    debugger
+  
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user     = useSelector((state)=> state.user)
@@ -37,11 +37,14 @@ const UserPostsPage = () => {
     
      const handleDelete = async (post)=>
      { 
-      const deletepostId = post._id
-      const deleteimage  = post.image.publicId
-      console.log(deleteimage);
+      const deletepostId  = post._id
+     
+      const imageId       = post.image.publicId
+
+      const deleteImageId = imageId.slice(imageId.indexOf('/')+1)
       
-      axios.delete(`http://localhost:4000/blog/v1/${deletepostId}/${deleteimage}/post`,
+      axios.delete(`http://localhost:4000/blog/v1/${deletepostId}/${deleteImageId}/post`,
+      
       {headers:{Authorization:`Bearer ${token}`}}
       
       
