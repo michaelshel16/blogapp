@@ -7,6 +7,7 @@ const nodemailer   = require('nodemailer');
 const Mailgen      = require('mailgen');
 const fs           = require('fs');
 const cloudinary   = require("../Utilities/Cloudinary.js");
+const querystring  = require('querystring');
 
 
 
@@ -26,6 +27,8 @@ const cloudinary   = require("../Utilities/Cloudinary.js");
       password
 
     } = req.body
+
+    
 
     const findUser = await User.findOne({email:email});
 
@@ -309,7 +312,7 @@ const createPost = async(req,res)=>{
     } = req.body
    
    
-  console.log(req.file);
+  
 
   const b64 = Buffer.from(req.file.buffer).toString("base64");
   let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
@@ -379,16 +382,21 @@ const deletePost = async(req,res)=>{
      
     try 
     {
-       const deletepostId  = req.params.deletepostId
-       const deleteimage   = req.params.deleteimage
+       const postId        = req.params.deletepostId
+       const deleteImage   = req.params.deleteimageId
+        
+       const publicId      = 'blogapp-assets/'+deleteImage
        
 
        
+      
+       
     
        
-       await Post.findByIdAndDelete(deletepostId)
-       console.log(deleteimage)
-       await cloudinary.uploader.destroy(deleteimage)
+       await Post.findByIdAndDelete(postId)
+       await cloudinary.uploader.destroy(publicId)
+      
+     
 
       // fs.unlinkSync(removePath)
        res.status(200).json({message:"Post deleted successfully"})
@@ -454,7 +462,7 @@ const getTechPosts = async(req,res)=>
   {
     
     const posts  = await Post.find({postType:"tech"})
-
+    
     if(posts)
     {
       res.status(200).json(posts)

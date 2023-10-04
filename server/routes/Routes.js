@@ -29,7 +29,7 @@ router.post("/passwordverify/user",controller.passwordResetVerify);
 router.post("/newsletter",controller.newsLetterCreate);
 
 
-router.delete("/:deletepostId/:deleteimage/post",verifyToken,controller.deletePost);
+router.delete("/:deletepostId/:deleteimageId/post",verifyToken,controller.deletePost);
 
 router.get("/:userId/posts",verifyToken,controller.getUserPosts);
 
